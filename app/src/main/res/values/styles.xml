@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="botaoAZul">
+      <item name="android:background">@drawable/bordas_radius_50_color_blue600</item>
+      <item name="android:textColor">@color/white</item>
+      <item name="fontFamily">@font/open_sans_semibold</item>
+      <item name="android:textSize">16sp</item>
+  </style>
+    <style name="botaoBranco">
+        <item name="android:background">@drawable/bordas_radius_50_color_white_colorborder_blue600</item>
+        <item name="android:textColor">@color/blue600</item>
+        <item name="fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="CheckboxPersonalizado">
+        <item name="android:buttonTint">@color/gray_50</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+    </style>
+    <style name="inputPadrao">
+        <item name="android:background">@drawable/bordas_input</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TituloPadrao">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/open_sans_bold</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+    <style name="textogray800">
+        <item name="android:textColor">@color/gray_800</item>
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+</resources>

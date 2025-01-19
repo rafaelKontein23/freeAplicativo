@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="entrar">Entrar</string>
+    <string name="bemVindo">Bem vindo!</string>
+
+
+    // titulos
+    <string name="dadosPessoais">Dados Pessoais</string>
+
+    <string name="continuar">Continuar</string>
+    <string name="liEaceitoPoliticaDePrivacidade">Li e estou de acordo com o Termo de Uso e Política de Privacidade</string>
+</resources>
