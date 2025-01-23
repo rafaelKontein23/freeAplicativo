@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presenter.View.ActDadosPessoais">
+    tools:context=".Presenter.View.Atividades.ActDadosPessoais">
 
     <ImageView
         android:id="@+id/setaVoltar"

@@ -13,10 +13,10 @@
         android:theme="@style/Theme.AppFrella"
         tools:targetApi="31">
         <activity
-            android:name=".Presenter.View.ActDadosPessoais"
+            android:name=".Presenter.View.Atividades.ActDadosPessoais"
             android:exported="false" />
         <activity
-            android:name=".Presenter.View.MainActivity"
+            android:name=".Presenter.View.Atividades.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
