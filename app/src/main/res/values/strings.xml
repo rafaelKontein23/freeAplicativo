@@ -4,6 +4,9 @@
     <string name="entrar">Entrar</string>
     <string name="bemVindo">Bem vindo!</string>
 
+    //Mensagem de erro
+    <string name="erroCpf">CPF invalido</string>
+
 
     // titulos
     <string name="dadosPessoais">Dados Pessoais</string>

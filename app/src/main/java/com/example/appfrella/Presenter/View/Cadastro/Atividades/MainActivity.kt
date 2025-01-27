@@ -1,4 +1,4 @@
-package com.example.appfrella.Presenter.View.Atividades
+package com.example.appfrella.Presenter.View.Cadastro.Atividades
 
 import android.content.Intent
 import android.os.Bundle

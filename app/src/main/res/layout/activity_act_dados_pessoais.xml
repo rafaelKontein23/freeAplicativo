@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presenter.View.Atividades.ActDadosPessoais">
+    tools:context=".Presenter.View.Cadastro.Atividades.ActDadosPessoais">
 
     <ImageView
         android:id="@+id/setaVoltar"
@@ -73,7 +73,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/input_data_nascimento"
+                android:id="@+id/inputDataNascimento"
                 style="@style/inputPadrao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,12 +91,12 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/input_cpf"
+                android:id="@+id/inputCpf"
                 style="@style/inputPadrao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Digite seu CPF"
-                android:inputType="number" />
+                android:inputType="date" />
 
             <!-- Email -->
             <TextView
@@ -145,11 +145,11 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/input_telefone"
+                android:id="@+id/inputTelefone"
                 style="@style/inputPadrao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="(DDD) 00000-0000"
+                android:hint="(00) 0 0000-0000"
                 android:inputType="phone" />
 
             <!-- Checkbox -->
