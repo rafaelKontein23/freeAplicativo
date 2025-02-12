@@ -5,6 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisFactory
+import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisViewModel
 import com.example.appfrella.R
 import com.example.appfrella.databinding.ActivityActDadosPessoaisBinding
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -23,6 +26,19 @@ class ActDadosPessoais : AppCompatActivity() {
             listener = null // Listener opcional
         )
 
+        val factory = ActDadosPessoaisFactory()
+        val viewModel = ViewModelProvider(this, factory).get(ActDadosPessoaisViewModel::class.java)
+        viewModel.checkPolitica.observe(this) { check ->
+            if (check){
+                // fazer o estilo aqui ....
+            }else{
+            }
+        }
+
+        binding.checkboxPolitica.setOnClickListener {
+            val check = if(viewModel.checkPolitica.value == true) false else true
+            viewModel.setCheckPolitica(check)
+        }
         // Adiciona o listener ao EditText
         binding.inputDataNascimento.addTextChangedListener(listener)
 
