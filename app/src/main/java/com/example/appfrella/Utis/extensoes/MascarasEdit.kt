@@ -5,19 +5,36 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 
 class MascarasEdit {
 
+   companion object {
+       fun EditText.mascaraData(){
+           val listener = MaskedTextChangedListener(
+               primaryFormat = "[00]{/}[00]{/}[0000]",
+               field = this,
+               listener = null
+           )
+           this.addTextChangedListener(listener)
+           this.onFocusChangeListener = listener
+       }
 
-    fun EditText.mascaraData(){
-        // Criação do listener de máscara
-        val listener = MaskedTextChangedListener(
-            primaryFormat = "[00]{/}[00]{/}[0000]", // Máscara para DD/MM/YYYY
-            field = this,
-            listener = null // Listener opcional
-        )
+       fun EditText.mascaraCpf(){
+           val listener = MaskedTextChangedListener(
+               primaryFormat = "[000]{.}[000]{.}[000]{-}[00]",
+               field = this,
+               listener = null
+           )
+           this.addTextChangedListener(listener)
+           this.onFocusChangeListener = listener
+       }
+       fun EditText.mascaraTelefone(){
+           val listener = MaskedTextChangedListener(
+               primaryFormat = "{(}[00]{) }[0]{ }[0000]{-}[0000]",
+               field = this,
+               listener = null
+           )
+           this.addTextChangedListener(listener)
+           this.onFocusChangeListener = listener
 
-        // Adiciona o listener ao EditText
-        this.addTextChangedListener(listener)
+       }
+   }
 
-        // Configura o listener de foco
-        this.onFocusChangeListener = listener
-    }
 }
