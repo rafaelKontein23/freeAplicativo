@@ -35,6 +35,17 @@ class MascarasEdit {
            this.onFocusChangeListener = listener
 
        }
+
+       fun String.removeMascara():String{
+           var texto = this
+           texto=   texto.replace("[.]".toRegex(), "")
+               .replace("[-]".toRegex(), "")
+               .replace("[/]".toRegex(), "")
+               .replace("[(]".toRegex(), "")
+               .replace("[)]".toRegex(), "")
+
+           return texto
+       }
    }
 
 }

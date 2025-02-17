@@ -15,6 +15,7 @@ import com.example.appfrella.R
 import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.mascaraCpf
 import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.mascaraData
 import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.mascaraTelefone
+import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.removeMascara
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCPF
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCampoComum
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaEmail
@@ -113,6 +114,21 @@ class ActDadosPessoais : AppCompatActivity() {
             }
 
         })
+
+        binding.btnSalvar.setOnClickListener {
+            val nome = binding.inputNome.text.toString()
+            val dataNascimento = binding.inputDataNascimento.text.toString()
+            val cpf = binding.inputCpf.text.toString().removeMascara()
+            val email = binding.inputEmail.text.toString()
+            val confirmaEmail = binding.inputConfirmaEmail.text.toString()
+            val telefone = binding.inputTelefone.text.toString().removeMascara()
+            val check = viewModel.checkPolitica.value
+
+            if(nome.isEmpty()){
+                binding.inputNome.error = "Campo obrigatório"
+            }
+
+        }
 
 
 
