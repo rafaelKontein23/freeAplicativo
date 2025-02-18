@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisFactory
 import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisViewModel
 import com.example.appfrella.R
+import com.example.appfrella.Utis.ValidarTexto.ValidaCPF
 import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.mascaraCpf
 import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.mascaraData
 import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.mascaraTelefone
@@ -20,7 +21,6 @@ import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCPF
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCampoComum
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaEmail
 import com.example.appfrella.databinding.ActivityActDadosPessoaisBinding
-import com.redmadrobot.inputmask.MaskedTextChangedListener
 
 class ActDadosPessoais : AppCompatActivity() {
     private val binding by lazy {
@@ -124,8 +124,23 @@ class ActDadosPessoais : AppCompatActivity() {
             val telefone = binding.inputTelefone.text.toString().removeMascara()
             val check = viewModel.checkPolitica.value
 
-            if(nome.isEmpty()){
-                binding.inputNome.error = "Campo obrigatório"
+            if(nome.isEmpty() ||
+                dataNascimento.isEmpty() ||
+                cpf.length < 14 ||
+                ValidaCPF.isValidCPF(cpf) ||
+                email.isEmpty() ||
+                confirmaEmail.isEmpty() ||
+                telefone.length <15||
+                check == false ||
+                !email.equals(confirmaEmail) ){
+                binding.inputNome.validaCampoComum(nome.isEmpty())
+                binding.inputDataNascimento.validaCampoComum(dataNascimento.isEmpty())
+                binding.inputCpf.validaCPF()
+                binding.inputEmail.validaEmail()
+                binding.inputConfirmaEmail.validaEmail()
+                binding.inputTelefone.validaCampoComum(telefone.isEmpty())
+            }else{
+
             }
 
         }
