@@ -1,5 +1,6 @@
 package com.example.appfrella.Presenter.View.Atividades
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,6 +21,7 @@ import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.removeMascara
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCPF
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCampoComum
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaEmail
+import com.example.appfrella.databinding.ActivityActDadosEnderecoBinding
 import com.example.appfrella.databinding.ActivityActDadosPessoaisBinding
 
 class ActDadosPessoais : AppCompatActivity() {
@@ -126,13 +128,13 @@ class ActDadosPessoais : AppCompatActivity() {
 
             if(nome.isEmpty() ||
                 dataNascimento.isEmpty() ||
-                cpf.length < 14 ||
-                ValidaCPF.isValidCPF(cpf) ||
+                cpf.length < 11 ||
+                !ValidaCPF.isValidCPF(cpf) ||
                 email.isEmpty() ||
                 confirmaEmail.isEmpty() ||
-                telefone.length <15||
+                telefone.length <13||
                 check == false ||
-                !email.equals(confirmaEmail) ){
+                email != confirmaEmail  ){
                 binding.inputNome.validaCampoComum(nome.isEmpty())
                 binding.inputDataNascimento.validaCampoComum(dataNascimento.isEmpty())
                 binding.inputCpf.validaCPF()
@@ -140,7 +142,7 @@ class ActDadosPessoais : AppCompatActivity() {
                 binding.inputConfirmaEmail.validaEmail()
                 binding.inputTelefone.validaCampoComum(telefone.isEmpty())
             }else{
-
+                startActivity(Intent(this, ActEnderecoPessoal::class.java))
             }
 
         }

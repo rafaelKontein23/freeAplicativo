@@ -10,4 +10,5 @@
 
     <string name="continuar">Continuar</string>
     <string name="liEaceitoPoliticaDePrivacidade">Li e estou de acordo com o Termo de Uso e Política de Privacidade</string>
+    <string name="title_activity_act_endereco_pessoal">actEnderecoPessoal</string>
 </resources>

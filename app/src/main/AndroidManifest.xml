@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AppFrella"
         tools:targetApi="31">
         <activity
+            android:name=".Presenter.View.Atividades.ActEnderecoPessoal"
+            android:exported="false"
+            android:label="@string/title_activity_act_endereco_pessoal"
+            android:theme="@style/Theme.AppFrella" />
+
+        <activity
             android:name=".Presenter.View.Atividades.ActDadosPessoais"
             android:exported="false" />
         <activity
