@@ -1,4 +1,4 @@
-package com.example.appfrella.Presenter.View.Atividades.ui.theme
+package com.example.appfrella.Presenter.View.cadastro.Atividades.theme
 
 import android.app.Activity
 import android.os.Build

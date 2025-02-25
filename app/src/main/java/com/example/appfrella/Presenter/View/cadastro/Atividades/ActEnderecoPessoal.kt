@@ -1,4 +1,4 @@
-package com.example.appfrella.Presenter.View.Atividades
+package com.example.appfrella.Presenter.View.cadastro.Atividades
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.appfrella.Presenter.View.Atividades.ui.theme.AppFrellaTheme
+import com.example.appfrella.Presenter.View.cadastro.Atividades.theme.AppFrellaTheme
 
 class ActEnderecoPessoal : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
