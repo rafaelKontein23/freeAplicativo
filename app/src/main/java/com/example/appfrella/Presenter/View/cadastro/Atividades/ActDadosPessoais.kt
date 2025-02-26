@@ -21,7 +21,6 @@ import com.example.appfrella.Utis.extensoes.MascarasEdit.Companion.removeMascara
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCPF
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaCampoComum
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaEmail
-import com.example.appfrella.databinding.ActivityActDadosEnderecoBinding
 import com.example.appfrella.databinding.ActivityActDadosPessoaisBinding
 
 class ActDadosPessoais : AppCompatActivity() {
