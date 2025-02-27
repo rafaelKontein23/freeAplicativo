@@ -59,6 +59,7 @@
                 style="@style/inputPadrao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_bold"
                 android:hint="Digite seu nome completo"
                 android:inputType="textPersonName" />
 

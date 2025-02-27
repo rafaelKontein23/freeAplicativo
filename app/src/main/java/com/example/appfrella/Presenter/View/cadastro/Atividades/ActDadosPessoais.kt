@@ -141,7 +141,7 @@ class ActDadosPessoais : AppCompatActivity() {
                 binding.inputConfirmaEmail.validaEmail()
                 binding.inputTelefone.validaCampoComum(telefone.isEmpty())
             }else{
-                startActivity(Intent(this, ActEnderecoPessoal::class.java))
+                startActivity(Intent(this, ActCadastro::class.java))
             }
 
         }
