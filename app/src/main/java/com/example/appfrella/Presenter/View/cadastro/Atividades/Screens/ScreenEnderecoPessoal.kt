@@ -2,27 +2,33 @@ package com.example.appfrella.Presenter.View.cadastro.Atividades.Screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.appfrella.Presenter.View.cadastro.componetes.Topo.TopoCadstro
-import com.example.appfrella.Utis.Constantes
+import com.example.appfrella.Presenter.View.cadastro.componetes.Botao.Botao
+import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputNumeroComum
+import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputTextComum
+import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextSelect
+import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascaraCep
+import com.example.appfrella.Presenter.View.cadastro.dialogCadastro.DialogUF
+import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
 
 
 @Composable
-fun ScreenEnderecoPessoal(){
+fun ScreenEnderecoPessoal(viewModel: ScrenDadosEnderecoViewModel?) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -31,18 +37,80 @@ fun ScreenEnderecoPessoal(){
             .verticalScroll(scrollState)
             .background(Color(0xFFFFFFFF))
     ) {
-        // Conteúdo da tela de endereço pessoal
-        Text(text = "Conteúdo da Tela de Endereço Pessoal")
+        Spacer(Modifier.height(48.dp))
+        var textoCep by remember { mutableStateOf("") }
+        var textoLogradouro by remember { mutableStateOf("") }
+        var textoBairro by remember { mutableStateOf("") }
+        var textoComplemento by remember { mutableStateOf("") }
+        var mostrarModal =  remember { mutableStateOf(false) }
+
+        viewModel?.atualizarListaUF()
+
+        val listaUF = viewModel?.listaUF?.collectAsState(emptyList())?.value ?: emptyList() // aqui é o observe
+
+
+        InputNumeroComum(
+            textoCep,
+            onTextChange = { textoCep = it },
+            MascaraCep(),
+            9,
+            "CEP",
+            "00000-000",
+            textoCep.length in 1..7
+        )
+        InputTextComum(
+            textoLogradouro,
+            onTextChange = { textoLogradouro = it },
+            titulo = "Logradouro",
+            placeHolder = "Ex : Rua 123555..",
+            error = textoLogradouro.length in 1..4
+        )
+
+        InputTextComum(
+            textoBairro,
+            onTextChange = { textoBairro = it },
+            titulo = "Bairro",
+            placeHolder = "Ex : bairro ruaa..",
+            error = textoLogradouro.length in 1..4
+        )
+
+        InputTextComum(
+            textoComplemento,
+            onTextChange = { textoComplemento = it },
+            titulo = "Complemento",
+            placeHolder = "Ex : Casa..",
+            error = textoLogradouro.length in 1..4
+        )
+        TextSelect("Estado") {
+            mostrarModal.value = true
+
+
+        }
+
+        TextSelect("Cidade") {
+
+        }
+
+        Botao ("Continuar"){
+
+        }
+
+        if (mostrarModal.value) {
+            DialogUF(
+                primaryAction = { mostrarModal.value = false },
+                listUF = listaUF ,
+            )
+        }
+
 
     }
 
 
-
 }
 
-@Preview(showBackground = true, showSystemUi = true, uiMode =UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun ScreenEnderecoPessoalPreview(){
+fun ScreenEnderecoPessoalPreview() {
 
-    ScreenEnderecoPessoal()
+    ScreenEnderecoPessoal(null)
 }

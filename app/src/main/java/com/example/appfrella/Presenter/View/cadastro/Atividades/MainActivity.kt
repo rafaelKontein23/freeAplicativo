@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnCadastrar.setOnClickListener {
-            val intent = Intent(this, ActDadosPessoais::class.java)
+            val intent = Intent(this, ActCadastro::class.java)
             startActivity(intent)
         }
 

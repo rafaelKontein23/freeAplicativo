@@ -2,7 +2,7 @@ package com.example.appfrella.Utis.ValidarTexto
 
 class ValidaCPF {
 
-    companion object{
+    companion object {
         fun isValidCPF(cpf: String): Boolean {
             val cleanCpf = cpf.filter { it.isDigit() }
 

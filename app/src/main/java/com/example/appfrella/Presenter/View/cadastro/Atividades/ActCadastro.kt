@@ -13,28 +13,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appfrella.Presenter.View.cadastro.Atividades.Screens.ScreenEnderecoPessoal
 import com.example.appfrella.Presenter.View.cadastro.Atividades.theme.AppFrellaTheme
 import com.example.appfrella.Presenter.View.cadastro.componetes.Topo.TopoCadstro
+import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisViewModel
+import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
+import com.example.appfrella.Presenter.ViewModel.Factory.ScrrenDadosEnderecoPessoalFactory
 import com.example.appfrella.Utis.Constantes
 
 class ActCadastro : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val factory = ScrrenDadosEnderecoPessoalFactory()
+        val viewModel = ViewModelProvider(this, factory).get(ScrenDadosEnderecoViewModel::class.java)
         setContent {
+
             AppFrellaTheme {
-                AppNavigation()
+
+                AppNavigation(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?) {
     val navController = rememberNavController()
 
     Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
@@ -46,7 +54,7 @@ fun AppNavigation() {
             startDestination = "enderecoPessoal"
         ) {
             composable("enderecoPessoal") {
-                ScreenEnderecoPessoal()
+                ScreenEnderecoPessoal(viewModel)
             }
             //navController.navigate("enderecoPessoal") // para ir para outra tela
         }
@@ -57,6 +65,6 @@ fun AppNavigation() {
 @Composable
 fun GreetingPreview() {
     AppFrellaTheme {
-        AppNavigation()
+        AppNavigation( null)
     }
 }

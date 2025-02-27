@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,11 +31,12 @@ fun Botao(nome: String = "Entrar",function: () -> Unit)  {
     Button(onClick = {
         function()
     }, modifier = Modifier.fillMaxWidth()
-        .padding(start = 8.dp, top = 48.dp, end = 8.dp, bottom = 8.dp)
-        .height(48.dp)
-        .background(Color(0xFF03168B), shape = RoundedCornerShape(size = 10.dp)),
+        .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
+        .height(56.dp)
+        .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp))
+        ,
         colors = ButtonDefaults.buttonColors(
-            Color(0xFF03168B),
+            Color(0xFF374BFF),
             contentColor = Color.White
         )
 
@@ -42,9 +44,10 @@ fun Botao(nome: String = "Entrar",function: () -> Unit)  {
     ) {
         Row (Modifier.fillMaxWidth()){
             Text(text = nome,
-                textAlign = TextAlign.Start,
+                modifier = Modifier.weight(1f).padding(top = 2.dp),
+                style =  TextStyle(
 
-                modifier = Modifier.weight(1f).padding(top = 2.dp)
+                )
             )
             Image(
                 modifier = Modifier
