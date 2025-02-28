@@ -1,4 +1,4 @@
-package com.example.appfrella.Presenter.View.cadastro.Atividades.theme
+package com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.theme
 
 import androidx.compose.ui.graphics.Color
 

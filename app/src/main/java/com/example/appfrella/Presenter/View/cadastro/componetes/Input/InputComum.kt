@@ -182,7 +182,7 @@ fun InputNumeroComum(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFFFFFFFF))
-            .padding(start = 24.dp, end = 24.dp)
+            .padding(start = 24.dp, end = 24.dp, top = 24.dp)
     ) {
         TextTituloInput(titulo)
         BasicTextField(

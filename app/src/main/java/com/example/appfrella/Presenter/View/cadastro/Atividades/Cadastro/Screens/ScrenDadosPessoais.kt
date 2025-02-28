@@ -1,6 +1,5 @@
-package com.example.appfrella.Presenter.View.cadastro.Atividades.Screens
+package com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.Screens
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,22 +21,28 @@ import com.example.appfrella.Presenter.View.cadastro.componetes.Botao.Botao
 import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputNumeroComum
 import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputTextComum
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextSelect
+import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascaraCelular
 import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascaraCep
+import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascaraData
 import com.example.appfrella.Presenter.View.cadastro.dialogCadastro.DialogUF
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
+import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaEmail
 
 
 @Composable
-fun ScreenEnderecoPessoal(viewModel: ScrenDadosEnderecoViewModel?) {
-    val scrollState = rememberScrollState()
-
+fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
+    val stateScroll = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
-            .background(Color(0xFFFFFFFF))
+            .background(Color.White)
+            .verticalScroll(stateScroll)
     ) {
-        Spacer(Modifier.height(48.dp))
+
+        var textNome by remember { mutableStateOf("") }
+        var textEmail by remember { mutableStateOf("") }
+        var textDataNascimento by remember { mutableStateOf("") }
+        var textCelular by remember { mutableStateOf("") }
         var textoCep by remember { mutableStateOf("") }
         var textoLogradouro by remember { mutableStateOf("") }
         var textoBairro by remember { mutableStateOf("") }
@@ -47,6 +52,45 @@ fun ScreenEnderecoPessoal(viewModel: ScrenDadosEnderecoViewModel?) {
         viewModel?.atualizarListaUF()
 
         val listaUF = viewModel?.listaUF?.collectAsState(emptyList())?.value ?: emptyList() // aqui é o observe
+
+
+        Spacer(Modifier.height(32.dp))
+        InputTextComum(
+            text = textNome,
+            "Nome Completo",
+            "nome completo",
+            onTextChange = { textNome = it },
+            error = textNome.length   in 1 ..  3
+        )
+
+        InputNumeroComum(
+            text = textDataNascimento,
+            onTextChange = { textDataNascimento = it },
+            mascara = MascaraData(),
+            maximoLetras = 8,
+            titulo = "Data de Nascimento",
+            placeHolder = "dd/mm/aaaa",
+            error = textDataNascimento.length   in 1 ..  7
+        )
+
+
+        InputTextComum(
+            text = textEmail,
+            "exemplo@email.com",
+            "Email",
+            onTextChange = { textEmail = it },
+            error = !android.util.Patterns.EMAIL_ADDRESS.matcher(textEmail).matches() && textEmail.length > 1
+        )
+
+        InputNumeroComum(
+            text = textCelular,
+            onTextChange = { textCelular = it },
+            mascara = MascaraCelular(),
+            maximoLetras = 11,
+            titulo = "Celular",
+            placeHolder = "00 00000-0000",
+            error = textCelular.length   in 1 ..  10
+        )
 
 
         InputNumeroComum(
@@ -104,13 +148,11 @@ fun ScreenEnderecoPessoal(viewModel: ScrenDadosEnderecoViewModel?) {
 
 
     }
-
-
 }
 
-@Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun ScreenEnderecoPessoalPreview() {
 
-    ScreenEnderecoPessoal(null)
+@Preview (showBackground = true, showSystemUi = true)
+@Composable
+fun ScreenDadosPessoaisPreview(){
+    ScreenDadosPessoais(null)
 }

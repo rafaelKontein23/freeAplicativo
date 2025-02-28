@@ -1,6 +1,5 @@
-package com.example.appfrella.Presenter.View.cadastro.Atividades.theme
+package com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

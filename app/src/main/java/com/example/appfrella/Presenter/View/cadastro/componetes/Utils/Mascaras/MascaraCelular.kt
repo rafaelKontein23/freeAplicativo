@@ -5,41 +5,44 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
+
 class MascaraCelular : MascarasProjeto {
     override fun filter(text: AnnotatedString): TransformedText {
-        val mascaraCelular = text.text.mapIndexed{index,c ->
-            when(index){
-                0-> "($c"
-                1 -> "$c) "
-                2 -> "$c "
-                6 -> "$c-"
-                else -> c
+        val originalText = text.text.filter { it.isDigit() } // Remove caracteres não numéricos
 
+        val maskedText = buildString {
+            for (i in originalText.indices) {
+                append(originalText[i])
+                when (i) {
+                    1 -> append(" ") // Espaço após o DDD
+                    6 -> if (originalText.length > 7) append("-") // Hífen para 9 dígitos
+                    5 -> if (originalText.length == 7) append("-") // Hífen para 8 dígitos
+                }
             }
-        }.joinToString(separator = "")
-        return TransformedText(AnnotatedString(mascaraCelular),CepMascara)
+        }
+
+        return TransformedText(
+            AnnotatedString(maskedText),
+            CelularOffsetMapping(originalText)
+        )
     }
 
-    object CepMascara: OffsetMapping {
+    class CelularOffsetMapping(private val originalText: String) : OffsetMapping {
         override fun originalToTransformed(offset: Int): Int {
-            return when{
-                offset > 6 -> offset + 4
-                offset > 4 -> offset + 2
-                offset > 1 -> offset + 3
-                offset > 0 -> offset + 1
-                else -> offset
+            if (offset <= 1) return offset
+            if (offset <= 6) return offset + 1
+            if (originalText.length > 7) {
+                return offset + 2
+            } else if (originalText.length == 7) {
+                return offset + 1
             }
+            return offset
         }
 
         override fun transformedToOriginal(offset: Int): Int {
-            return when{
-                offset > 6 -> offset - 4
-                offset > 4 -> offset - 2
-                offset > 1 -> offset - 3
-                offset > 0 -> offset - 1
-                else -> offset
-            }
+            if (offset <= 2) return offset
+            if (offset <= 8) return offset - 1
+            return offset - 2
         }
-
     }
 }

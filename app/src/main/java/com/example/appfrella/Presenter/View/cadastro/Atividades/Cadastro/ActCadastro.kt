@@ -1,4 +1,4 @@
-package com.example.appfrella.Presenter.View.cadastro.Atividades
+package com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,8 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,10 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.appfrella.Presenter.View.cadastro.Atividades.Screens.ScreenEnderecoPessoal
-import com.example.appfrella.Presenter.View.cadastro.Atividades.theme.AppFrellaTheme
+import com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.Screens.ScreenDadosPessoais
+import com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.Screens.ScreenEnderecoPessoal
+import com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.theme.AppFrellaTheme
 import com.example.appfrella.Presenter.View.cadastro.componetes.Topo.TopoCadstro
-import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisViewModel
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrrenDadosEnderecoPessoalFactory
 import com.example.appfrella.Utis.Constantes
@@ -51,10 +49,13 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?) {
         }
         NavHost(
             navController = navController,
-            startDestination = "enderecoPessoal"
+            startDestination = "dadosPessoais"
         ) {
             composable("enderecoPessoal") {
                 ScreenEnderecoPessoal(viewModel)
+            }
+            composable("dadosPessoais"){
+                ScreenDadosPessoais(viewModel)
             }
             //navController.navigate("enderecoPessoal") // para ir para outra tela
         }

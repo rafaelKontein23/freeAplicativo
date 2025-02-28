@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presenter.View.cadastro.Atividades.MainActivity">
+    tools:context=".Presenter.View.cadastro.Atividades.Cadastro.MainActivity">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEntrar"
