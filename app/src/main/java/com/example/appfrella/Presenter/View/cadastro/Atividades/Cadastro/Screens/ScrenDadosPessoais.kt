@@ -47,7 +47,10 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
         var textoLogradouro by remember { mutableStateOf("") }
         var textoBairro by remember { mutableStateOf("") }
         var textoComplemento by remember { mutableStateOf("") }
-        var mostrarModal =  remember { mutableStateOf(false) }
+        val mostrarModal =  remember { mutableStateOf(false) }
+        viewModel?.atualizarListaUF()
+
+        val ufSelecionado = viewModel?.ufSelecionado?.collectAsState()?.value ?: ""
 
         viewModel?.atualizarListaUF()
 
@@ -92,7 +95,6 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
             error = textCelular.length   in 1 ..  10
         )
 
-
         InputNumeroComum(
             textoCep,
             onTextChange = { textoCep = it },
@@ -125,13 +127,13 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
             placeHolder = "Ex : Casa..",
             error = textoLogradouro.length in 1..4
         )
-        TextSelect("Estado") {
+        TextSelect("Estado",if(ufSelecionado.isEmpty()) "Estado" else ufSelecionado) {
             mostrarModal.value = true
 
 
         }
 
-        TextSelect("Cidade") {
+        TextSelect("Cidade","Cidade") {
 
         }
 
@@ -142,9 +144,11 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
         if (mostrarModal.value) {
             DialogUF(
                 primaryAction = { mostrarModal.value = false },
-                listUF = listaUF ,
+                listUF = listaUF,
+                viewModel
             )
         }
+
 
 
     }
