@@ -32,8 +32,9 @@ fun DialogErro(
             modifier = Modifier
                 .fillMaxWidth(.35f)
                 .fillMaxHeight(.25f)
-                .background(Color.White, shape = RoundedCornerShape(12.dp))
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
         ) {
+
 
         }
 
