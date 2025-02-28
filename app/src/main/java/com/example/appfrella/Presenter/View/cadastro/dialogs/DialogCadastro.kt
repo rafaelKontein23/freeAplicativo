@@ -1,11 +1,10 @@
-package com.example.appfrella.Presenter.View.cadastro.dialogCadastro
+package com.example.appfrella.Presenter.View.cadastro.dialogs
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -30,7 +28,6 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputTextBusca
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextSelecao
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextTituloDialog
-import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisViewModel
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
 import com.example.appfrella.R
 

@@ -16,7 +16,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.Screens.ScreenDadosPessoais
-import com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.Screens.ScreenEnderecoPessoal
 import com.example.appfrella.Presenter.View.cadastro.Atividades.Cadastro.theme.AppFrellaTheme
 import com.example.appfrella.Presenter.View.cadastro.componetes.Topo.TopoCadstro
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
@@ -52,7 +51,7 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?) {
             startDestination = "dadosPessoais"
         ) {
             composable("enderecoPessoal") {
-                ScreenEnderecoPessoal(viewModel)
+              //  ScreenEnderecoPessoal(viewModel)
             }
             composable("dadosPessoais"){
                 ScreenDadosPessoais(viewModel)

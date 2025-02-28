@@ -1,4 +1,4 @@
-package com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras
+package com.example.appfrella.Presenter.View.UtisViews.Mascaras
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

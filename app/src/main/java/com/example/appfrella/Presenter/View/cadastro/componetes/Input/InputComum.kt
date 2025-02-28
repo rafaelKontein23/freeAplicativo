@@ -4,6 +4,7 @@ import android.renderscript.ScriptGroup.Input
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,9 +38,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextPlaceHolderInput
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextTituloInput
-import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascaraCelular
-import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascaraCep
-import com.example.appfrella.Presenter.View.cadastro.componetes.Utils.Mascaras.MascarasProjeto
+import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraCelular
+import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraCep
+import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascarasProjeto
 import com.example.appfrella.R
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.validaEmail
 
@@ -49,6 +52,7 @@ fun InputTextComum(
     titulo: String = "Endereço",
     onTextChange: (String) -> Unit,
     error: Boolean,
+    focusRequester: FocusRequester
 ) {
 
 
@@ -76,6 +80,8 @@ fun InputTextComum(
             ),
             modifier = Modifier
                 .fillMaxWidth()
+                .focusRequester(focusRequester)
+                .focusable()
                 .border(
                     width = 1.dp,
                     color = if (error) {
@@ -256,7 +262,7 @@ fun inputNumeroComumPreview() {
 @Composable
 fun inputStringComumPreview() {
     var text by remember { mutableStateOf("") }
-    InputTextComum(text, onTextChange = { text = it }, error = false)
+    InputTextComum(text, onTextChange = { text = it }, error = false, focusRequester = FocusRequester())
 }
 
 @Preview
