@@ -152,10 +152,14 @@ fun InputTextBusca(
                     ) {
                         if (text.isEmpty()) {
                             TextPlaceHolderInput(placeHolder)
+                        }else{
+                            TextPlaceHolderInput("")
+
                         }
                         Image(
                             painter = painterResource(R.drawable.buscar),
                             contentDescription = "seta Selecionar",
+                            alignment = Alignment.CenterEnd,
                             modifier = Modifier.size(24.dp)
                         )
                     }
