@@ -54,19 +54,21 @@ fun TextTituloDialog(titulo: String) {
             letterSpacing = 0.15.sp,
         ), modifier = Modifier
             .padding(bottom = 24.dp, start = 24.dp, top = 32.dp)
-            .fillMaxWidth(.8f)
+            .fillMaxWidth(.9f)
 
     )
 }
 
 @Composable
-fun TextSelecao(titulo: String, selecionado:Boolean){
+fun TextSelecao(titulo: String, selecionado:Boolean, function: () -> Unit){
 
     Column (
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 24.dp, end = 24.dp, top = 24.dp)
-            .background(Color(0xFFFFFFFF))
+            .background(Color(0xFFFFFFFF)).clickable {
+                function()
+            }
     ){
         Row (
             modifier = Modifier
@@ -119,7 +121,7 @@ fun TextPlaceHolderInput(placeHolder: String) {
 }
 
 @Composable
-fun TextSelect(titulo: String, function: () -> Unit) {
+fun TextSelect(titulo: String,slecionado:String, function: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -135,17 +137,17 @@ fun TextSelect(titulo: String, function: () -> Unit) {
                 .background(color = Color(0xFFFFFF))
                 .padding(top = 8.dp)
                 .border(width = 1.dp, color = Color(0xFFADB0B6), shape = RoundedCornerShape(8.dp))
-
+                .clickable {
+                    function()
+                }
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 16.dp),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
 
             ) {
 
             Text(
-                text = titulo,
-                modifier = Modifier.weight(.8f).clickable {
-                    function()
-                },
+                text = slecionado,
+                modifier = Modifier.weight(.8f),
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
@@ -171,7 +173,9 @@ fun TextSelect(titulo: String, function: () -> Unit) {
 @Preview
 @Composable
 fun TextSelecaoPreview() {
-    TextSelecao("Cidade", false)
+    TextSelecao("Cidade", false){
+
+    }
 }
 
 @Preview
@@ -183,7 +187,7 @@ fun TextTituloInputPreview() {
 @Preview
 @Composable
 fun TextSelectPreview() {
-    TextSelect("Cidade") {
+    TextSelect( "Cidade", "Cidade") {
 
     }
 }

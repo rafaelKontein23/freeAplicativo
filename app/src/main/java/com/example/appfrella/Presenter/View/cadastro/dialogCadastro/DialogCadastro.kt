@@ -2,6 +2,7 @@ package com.example.appfrella.Presenter.View.cadastro.dialogCadastro
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -29,13 +30,16 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputTextBusca
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextSelecao
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextTituloDialog
+import com.example.appfrella.Presenter.ViewModel.Factory.ActDadosPessoaisViewModel
+import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
 import com.example.appfrella.R
 
 
 @Composable
 fun DialogUF(
     primaryAction: () -> Unit,
-    listUF: List<String>
+    listUF: List<String>,
+    viewModel: ScrenDadosEnderecoViewModel?
 ) {
     Dialog(
         onDismissRequest = { primaryAction() },
@@ -44,6 +48,10 @@ fun DialogUF(
             usePlatformDefaultWidth = false
         )
     ) {
+        var text by remember { mutableStateOf("") }
+
+        viewModel?.filtraListaUF(text)
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -67,13 +75,15 @@ fun DialogUF(
                     modifier = Modifier
                         .padding(top = 24.dp)
                         .height(24.dp)
-                        .size(24.dp),
+                        .size(24.dp).clickable {
+                            primaryAction()
+                        },
                 )
             }
 
             InputTextBusca(
-                text = "",
-                onTextChange = { }
+                text = text,
+                onTextChange = { text = it }
             )
 
             LazyColumn(
@@ -82,7 +92,12 @@ fun DialogUF(
                     .weight(1f) // Faz a lista expandir dentro do diálogo
             ) {
                 items(listUF) { item ->
-                    TextSelecao(item, false)
+                    TextSelecao(item, false){
+                        viewModel?.atualizarUfSelecionado(item)
+                        primaryAction()
+
+                    }
+
                 }
             }
         }
@@ -92,5 +107,5 @@ fun DialogUF(
 @Preview
 @Composable
 fun DialogCidadePreview() {
-    DialogUF(primaryAction = {}, listUF = arrayListOf())
+    DialogUF(primaryAction = {}, listUF = arrayListOf(), null)
 }
