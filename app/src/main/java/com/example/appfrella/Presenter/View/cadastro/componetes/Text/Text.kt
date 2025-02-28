@@ -108,6 +108,20 @@ fun TextSelecao(titulo: String, selecionado:Boolean, function: () -> Unit){
 
 }
 
+@Composable
+fun TextModal(titulo: String ){
+    Text(
+        text = titulo,
+        style = TextStyle(
+            fontSize = 18.sp,
+            color = Color(0xFF000000),
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = FontFamily(Font(R.font.manrope)),
+            letterSpacing = 0.15.sp,
+        )
+
+    )
+}
 
 @Composable
 fun TextPlaceHolderInput(placeHolder: String) {
@@ -202,4 +216,10 @@ fun TextPlaceHolderInputPreview() {
 @Composable
 fun TextTituloDialogPreview() {
     TextTituloDialog("Cidade")
+}
+
+@Preview
+@Composable
+fun TextModalPreview() {
+    TextModal("Opsss!")
 }
