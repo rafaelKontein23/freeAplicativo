@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -113,14 +115,34 @@ fun TextModal(titulo: String ){
     Text(
         text = titulo,
         style = TextStyle(
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             color = Color(0xFF000000),
-            fontWeight = FontWeight.ExtraBold,
-            fontFamily = FontFamily(Font(R.font.manrope)),
+            fontFamily = FontFamily(Font(R.font.manrope_bold)),
             letterSpacing = 0.15.sp,
-        )
+        ),
+        modifier =  Modifier.padding(top = 32.dp)
 
     )
+}
+
+
+@Composable
+fun TextDescricao(descricao:String){
+
+    Text(
+        text = descricao,
+        style = TextStyle(
+            fontSize = 13.sp,
+            color = Color(0xFF787B82),
+            fontWeight = FontWeight(400),
+            fontFamily = FontFamily(Font(R.font.manrope)),
+            letterSpacing = 0.15.sp,
+            textAlign =  TextAlign.Center
+        ),
+        modifier =  Modifier.padding(top = 12.dp, start = 24.dp, end = 16.dp)
+
+    )
+
 }
 
 @Composable
@@ -222,4 +244,11 @@ fun TextTituloDialogPreview() {
 @Composable
 fun TextModalPreview() {
     TextModal("Opsss!")
+}
+
+@Preview
+@Composable
+fun TextDescricaoPreview() {
+    TextDescricao("")
+
 }

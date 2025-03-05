@@ -33,7 +33,8 @@ class ValidarCampos {
         }
 
         fun String.isIdadeValida(): Boolean {
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+            val dateFormat = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
 
             val nascimento: Date
             try {

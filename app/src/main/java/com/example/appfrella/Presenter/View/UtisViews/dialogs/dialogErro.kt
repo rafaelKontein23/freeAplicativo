@@ -2,11 +2,9 @@ package com.example.appfrella.Presenter.View.UtisViews.dialogs
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.appfrella.Presenter.View.cadastro.componetes.Botao.BotaoErro
+import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextDescricao
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextModal
 import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextTituloDialog
 import com.example.appfrella.R
@@ -29,6 +29,7 @@ import com.example.appfrella.R
 @Composable
 fun DialogErro(
     primaryAction: () -> Unit,
+    textDescricao:String = "Isso é um erro, e acontece, Tenta novamente mais tarde"
 ){
 
     Dialog(
@@ -41,31 +42,31 @@ fun DialogErro(
 
         Column (
             modifier = Modifier
-                .fillMaxWidth(.35f)
-                .fillMaxHeight(.25f)
+                .fillMaxWidth(.7f)
+                .wrapContentHeight()
                 .background(Color.White, shape = RoundedCornerShape(8.dp)),
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(52.dp))
             Image(
                 painter = painterResource(R.drawable.cancelar),
                 contentDescription = "Fechar ",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(68.dp)
                     .background(
                         color = Color.White,
                         shape = RoundedCornerShape(8.dp)
                     )
             )
-            TextModal("Ops!!")
+            TextModal("opsss!!")
 
+            TextDescricao(textDescricao)
 
-
-
+            BotaoErro (){
+                primaryAction()
+            }
         }
-
     }
-
 }
 
 

@@ -14,6 +14,7 @@ class ScrenDadosEnderecoViewModel : ViewModel()  {
     private val _ufSelecionado = MutableStateFlow("")
     val ufSelecionado: StateFlow<String> = _ufSelecionado
 
+
     fun atualizarListaUF() {
         val povoaUF = PovoaUF()
         _listaUF.value = povoaUF.alimentaListaUF()

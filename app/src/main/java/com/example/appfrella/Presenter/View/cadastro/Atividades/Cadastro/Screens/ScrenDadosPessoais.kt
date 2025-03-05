@@ -27,6 +27,7 @@ import com.example.appfrella.Presenter.View.cadastro.componetes.Text.TextSelect
 import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraCelular
 import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraCep
 import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraData
+import com.example.appfrella.Presenter.View.UtisViews.dialogs.DialogErro
 import com.example.appfrella.Presenter.View.cadastro.dialogs.DialogUF
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.isIdadeValida
@@ -53,6 +54,7 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
         var textoBairro by remember { mutableStateOf("") }
         var textoComplemento by remember { mutableStateOf("") }
         val mostrarModal =  remember { mutableStateOf(false) }
+        val mostrarDialogErro = remember { mutableStateOf(false) }
         val focusNome = remember { FocusRequester() }
         val focusEmail = remember { FocusRequester() }
         val focusDataNascimento = remember { FocusRequester() }
@@ -171,13 +173,15 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
 
             }else{
                 Toast.makeText(context, "Preencha todos os campos vazios ou marcados", Toast.LENGTH_LONG).show()
-                 if(!textDataNascimento.isIdadeValida()){
+                mostrarDialogErro.value = !textDataNascimento.isIdadeValida()
 
-                 }
             }
 
         }
 
+        if(mostrarDialogErro.value){
+            DialogErro(primaryAction = { mostrarDialogErro.value = false }, "Sua idade deve ser maior que 18 anos")
+        }
         if (mostrarModal.value) {
             DialogUF(
                 primaryAction = { mostrarModal.value = false },
@@ -185,9 +189,6 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
                 viewModel
             )
         }
-
-
-
     }
 }
 
