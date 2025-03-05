@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.appfrella.Presenter.View.cadastro.componetes.Botao.Botao
 import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputNumeroComum
 import com.example.appfrella.Presenter.View.cadastro.componetes.Input.InputTextComum
@@ -29,13 +30,14 @@ import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraCep
 import com.example.appfrella.Presenter.View.UtisViews.Mascaras.MascaraData
 import com.example.appfrella.Presenter.View.UtisViews.dialogs.DialogErro
 import com.example.appfrella.Presenter.View.cadastro.dialogs.DialogUF
+import com.example.appfrella.Presenter.ViewModel.Factory.ActCadastroViewModel
 import com.example.appfrella.Presenter.ViewModel.Factory.ScrenDadosEnderecoViewModel
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.isIdadeValida
 import com.example.appfrella.Utis.extensoes.ValidarCampos.Companion.removerNaoNumericos
 
 
 @Composable
-fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
+fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro: ActCadastroViewModel?){
     val stateScroll = rememberScrollState()
     Column(
         modifier = Modifier
@@ -57,9 +59,6 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
         val mostrarDialogErro = remember { mutableStateOf(false) }
         val focusNome = remember { FocusRequester() }
         val focusEmail = remember { FocusRequester() }
-        val focusDataNascimento = remember { FocusRequester() }
-        val focusCelular = remember { FocusRequester() }
-        val focusCep = remember { FocusRequester() }
         val focusLogradouro = remember { FocusRequester() }
         val focusBairro = remember { FocusRequester() }
         val focusComplemento = remember { FocusRequester() }
@@ -160,6 +159,7 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
         }
 
         Botao ("Continuar"){
+            viewModelActCadastro!!.atualizarTituloCabecario("Dados Pessoais")
             if(textNome.length >= 3 &&
                 android.util.Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()&&
                 textDataNascimento.length ==10 &&
@@ -196,5 +196,5 @@ fun ScreenDadosPessoais(viewModel: ScrenDadosEnderecoViewModel?){
 @Preview (showBackground = true, showSystemUi = true)
 @Composable
 fun ScreenDadosPessoaisPreview(){
-    ScreenDadosPessoais(null)
+    ScreenDadosPessoais(null, viewModelActCadastro = null)
 }

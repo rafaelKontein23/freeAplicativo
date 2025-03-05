@@ -32,7 +32,7 @@ import com.example.appfrella.R
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
-fun Botao(nome: String = "Entrar",function:() -> Unit)  {
+fun Botao(nome: String = "continuar",function:() -> Unit)  {
 
     Button(onClick = {
         function()
