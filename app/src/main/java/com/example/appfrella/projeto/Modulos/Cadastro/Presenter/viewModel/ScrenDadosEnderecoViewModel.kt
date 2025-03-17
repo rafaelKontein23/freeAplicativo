@@ -21,7 +21,7 @@ class ScrenDadosEnderecoViewModel(
     private val _erro = MutableStateFlow(String())
     val erro : MutableStateFlow<String> = _erro
 
-    private val _ufSelecionado = MutableStateFlow("")
+    private val _ufSelecionado = MutableStateFlow("Estado")
     val ufSelecionado: StateFlow<String> = _ufSelecionado
 
 
@@ -37,12 +37,17 @@ class ScrenDadosEnderecoViewModel(
     fun buscarDadosCEP(cep: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val resultado = cadastroServices.buscaCepServices(cep)
-            if (resultado == null) {
+            if (resultado is String) {
                 _erro.value = "Erro na requisição"
             } else {
-                _cep.value = resultado
+                _cep.value = resultado as CepResponse
             }
+
         }
+    }
+
+    fun atualizaMensagemErro(error: String){
+        _erro.value = error
     }
 
     fun atualizarUfSelecionado(uf: String) {
@@ -59,5 +64,4 @@ class ScrenDadosEnderecoViewModel(
             _listaUF.value = listaFiltrada as ArrayList<String>
         }
     }
-
 }

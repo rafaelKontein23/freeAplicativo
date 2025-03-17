@@ -48,7 +48,7 @@ class ActCadastro : ComponentActivity() {
 @Composable
 fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro: ActCadastroViewModel?) {
     val navController = rememberNavController()
-    val tituloCabecario = viewModelActCadastro?.tituloCabecario?.collectAsState()?.value ?: "Dados Pessoais"
+    val tituloCabecario = viewModelActCadastro?.tituloCabecario?.collectAsState()?.value ?: ""
 
 
     Column(modifier = Modifier

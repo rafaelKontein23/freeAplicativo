@@ -63,6 +63,7 @@ fun ScreenDadosPessoais(
     val emRequest = remember { mutableStateOf(false) }
     val textCidade = remember { mutableStateOf("") }
     val erro = viewModel?.erro!!.collectAsState()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -76,14 +77,13 @@ fun ScreenDadosPessoais(
         ) {
 
 
-            viewModel?.atualizarListaUF()
+            viewModel.atualizarListaUF()
 
-            val ufSelecionado = viewModel?.ufSelecionado?.collectAsState()?.value ?: ""
+            val ufSelecionado = viewModel.ufSelecionado.collectAsState().value
 
-            viewModel?.atualizarListaUF()
+            viewModel.atualizarListaUF()
 
-            val listaUF = viewModel?.listaUF?.collectAsState(emptyList())?.value
-                ?: emptyList() // aqui é o observe
+            val listaUF = viewModel.listaUF.collectAsState(emptyList()).value
 
 
             Spacer(Modifier.height(32.dp))
@@ -162,7 +162,7 @@ fun ScreenDadosPessoais(
                 error = textoLogradouro.length in 1..4,
                 focusRequester = focusComplemento
             )
-            TextSelect("Estado", if (ufSelecionado.isEmpty()) "Estado" else ufSelecionado) {
+            TextSelect("Estado", ufSelecionado) {
                 mostrarModal.value = true
 
 
@@ -192,22 +192,23 @@ fun ScreenDadosPessoais(
                         "Preencha todos os campos vazios ou marcados",
                         Toast.LENGTH_LONG
                     ).show()
-                    mostrarDialogErro.value = !textDataNascimento.isIdadeValida()
+                    viewModel.atualizaMensagemErro("Preencha a da de nascismentos")
+
 
                 }
 
             }
 
-            if (textoCep.length >= 8 && !emRequest.value) {
+            if (textoCep.length == 8) {
                 mostrarProgress.value = true
-                viewModel?.buscarDadosCEP(textoCep)
-                emRequest.value = true
+                viewModel.buscarDadosCEP(textoCep)
+
             }
 
-            if (mostrarDialogErro.value) {
+            if (erro.value != "") {
                 DialogErro(
                     primaryAction = { mostrarDialogErro.value = false },
-                    "Sua idade deve ser maior que 18 anos"
+                    erro.value
                 )
             }
             if (mostrarModal.value) {
@@ -219,19 +220,20 @@ fun ScreenDadosPessoais(
             }
         }
 
+        ProgressBarCentralizao(mostrarProgress.value)
 
-
-        if (mostrarProgress.value) {
-            ProgressBarCentralizao(mostrarProgress.value)
-        }
     }
 
-    viewModel?.cep?.collectAsState()?.value?.let { cep ->
-        textoLogradouro = cep.logradouro
-        textoBairro = cep.bairro
-        textoComplemento = cep.complemento
-        viewModel?.atualizarUfSelecionado(cep.uf)
+    viewModel.cep.collectAsState().value.let { cep ->
+        emRequest.value = false
         mostrarProgress.value = false
+        if(cep.uf.isNotEmpty()){
+            textoLogradouro = cep.logradouro
+            textoBairro = cep.bairro
+            textoComplemento = cep.complemento
+            viewModel.atualizarUfSelecionado(cep.uf)
+        }
+
     }
 
 }
