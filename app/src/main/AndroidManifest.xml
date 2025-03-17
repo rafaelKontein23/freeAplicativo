@@ -14,16 +14,14 @@
         android:theme="@style/Theme.AppFrella"
         tools:targetApi="31">
         <activity
-            android:name=".Presenter.View.cadastro.Atividades.Cadastro.ActCadastro"
+            android:name=".projeto.Modulos.Cadastro.Presenter.Views.Atividades.ActCadastro"
             android:exported="false"
             android:label="@string/title_activity_act_endereco_pessoal"
             android:theme="@style/Theme.AppFrella" />
 
+
         <activity
-            android:name=".Presenter.View.cadastro.Atividades.Cadastro.ActDadosPessoais"
-            android:exported="false" />
-        <activity
-            android:name=".Presenter.View.cadastro.Atividades.Cadastro.MainActivity"
+            android:name=".projeto.Modulos.Cadastro.Presenter.Views.Atividades.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
