@@ -62,12 +62,34 @@ class ScrenDadosEnderecoViewModel(
         }
     }
 
+
+    fun buscaCidadesUF(uf: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            mostrarProgress.value = true
+            CoroutineScope(Dispatchers.IO).launch {
+                val resultado = cadastroServices.buscaCidadeServices(uf)
+                withContext(Dispatchers.Main) {
+                    mostrarProgress.value = false
+                    if (resultado is String) {
+                        _erro.value = resultado
+                        _mostraModalErro.value = true
+                    }else{
+
+                    }
+                }
+
+            }
+        }
+    }
+
     fun atualizaMensagemErro(error: String){
         _erro.value = error
     }
 
     fun atualizarUfSelecionado(uf: String) {
         _ufSelecionado.value = uf
+        val siglaUF = uf.substring(0, 2)
+        buscaCidadesUF(siglaUF)
     }
 
     fun filtraListaUF(texto: String) {

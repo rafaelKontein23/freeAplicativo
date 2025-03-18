@@ -30,4 +30,25 @@ class CadastroRepository(context: Context) {
             return RespostaPadraoAPI(false, null, Constantes.erroInternet)
         }
     }
+
+    fun buscaCidadeRepository(uf:String): RespostaPadraoAPI? {
+        try {
+            val request = retrofit.buscaCidade(uf).execute()
+            if(request.isSuccessful){
+                val response = request.body()?.string()
+                val gson = Gson()
+                val cidadeResponse = gson.fromJson(response, RespostaPadraoAPI::class.java)
+                return cidadeResponse
+            }else{
+                return RespostaPadraoAPI(false, null, "Algo deu ao buscar cidades ")
+            }
+
+        }catch (e:Exception){
+            e.printStackTrace()
+            return RespostaPadraoAPI(false, null, "Algo deu ao buscar cidades ")
+        }catch (i: IOException){
+            i.printStackTrace()
+            return RespostaPadraoAPI(false, null, Constantes.erroInternet)
+        }
+    }
 }
