@@ -3,6 +3,7 @@ package com.example.appfrella.projeto.UtisViews.componetes.Botao
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -31,15 +32,16 @@ import com.example.appfrella.R
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
-fun Botao(nome: String = "continuar",function:() -> Unit)  {
+fun Botao(nome: String = "continuar", function: () -> Unit) {
 
-    Button(onClick = {
-        function()
-    }, modifier = Modifier.fillMaxWidth()
-        .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
-        .height(56.dp)
-        .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp))
-        ,
+    Button(
+        onClick = {
+            function()
+        }, modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
+            .height(56.dp)
+            .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp)),
         colors = ButtonDefaults.buttonColors(
             Color(0xFF374BFF),
             contentColor = Color.White
@@ -47,10 +49,13 @@ fun Botao(nome: String = "continuar",function:() -> Unit)  {
 
 
     ) {
-        Row (Modifier.fillMaxWidth()){
-            Text(text = nome,
-                modifier = Modifier.weight(1f).padding(top = 2.dp),
-                style =  TextStyle(
+        Row(Modifier.fillMaxWidth()) {
+            Text(
+                text = nome,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(top = 2.dp),
+                style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.manrope))
 
                 )
@@ -61,7 +66,7 @@ fun Botao(nome: String = "continuar",function:() -> Unit)  {
                     .clickable(
                         interactionSource = MutableInteractionSource(),
                         indication = null
-                    ){},
+                    ) {},
                 painter = painterResource(id = R.drawable.seta_direita),
                 contentDescription = null
             )
@@ -71,7 +76,7 @@ fun Botao(nome: String = "continuar",function:() -> Unit)  {
 }
 
 @Composable
-fun BotaoErro(function: () -> Unit){
+fun BotaoErro(function: () -> Unit) {
     Button(
         onClick = { function() },
         modifier = Modifier
@@ -86,21 +91,78 @@ fun BotaoErro(function: () -> Unit){
 
 
     ) {
-        Row (
-            modifier =  Modifier.fillMaxWidth(),
+        Row(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Fechar",
+            Text(
+                text = "Fechar",
                 modifier = Modifier.padding(top = 1.dp),
-                style =  TextStyle(
+                style = TextStyle(
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp,
                     fontFamily = FontFamily(Font(R.font.manrope)),
 
-                )
-                )
+                    )
+            )
         }
+    }
+}
+
+@Composable
+fun BotaoBranco(function: () -> Unit) {
+    Button(
+        onClick = { function() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 10.dp)),
+        colors = ButtonDefaults.buttonColors(
+            Color(0xFFFFFFFF),
+            contentColor = Color.White
+        )
+    ) {
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Text(
+                text = "Entrar",
+                style = TextStyle(
+                    color = Color(0xff1C34CE),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily(Font(R.font.manrope))
+                )
+            )
+        }
+
+    }
+}
+
+@Composable
+fun BotaoBordaBranca(function: () -> Unit) {
+    Button(
+        onClick = {function()},
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding( bottom = 44.dp)
+            .border(width = 1.dp, color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 10.dp)),
+        colors = ButtonDefaults.buttonColors(
+            Color(0x00FFFFFF),
+            contentColor = Color.White
+        )
+    ) {
+        Text(
+            text = "Cadastrar-se",
+            style = TextStyle(
+                color = Color(0xFFFFFFFF),
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                fontFamily = FontFamily(Font(R.font.manrope)))
+        )
     }
 }
 
@@ -108,15 +170,27 @@ fun BotaoErro(function: () -> Unit){
 @Preview(showBackground = true)
 @Composable
 fun BotaoPreview() {
-     Botao(){
+    Botao() {
 
-     }
+    }
+}
+
+@Preview
+@Composable
+fun BotaoBrodaBrancaPreview() {
+    BotaoBordaBranca() {}
+}
+
+@Preview
+@Composable
+fun BotaoBrancoPreview() {
+    BotaoBranco() {}
 }
 
 @Preview
 @Composable
 fun BotaoErroPreview() {
-    BotaoErro(){
+    BotaoErro() {
 
     }
 }

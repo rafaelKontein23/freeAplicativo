@@ -202,6 +202,47 @@ fun TextSelect(titulo: String,slecionado:String, function: () -> Unit) {
 }
 
 
+@Composable
+fun TextTiTuloInfo(){
+    Text(
+        text =  "Bem-Vindo(a)",
+        style = TextStyle(
+            fontSize = 32.sp,
+            color = Color(0xFFFFFFFF),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily(Font(R.font.manrope))
+        )
+    )
+}
+
+@Composable
+fun TextDescricaoCompose(){
+    Text(
+        text =  "Conecte-se para explorar novas oportunidades, gerenciar seus projetos e crescer na sua carreira freelancer.",
+        style = TextStyle(
+            fontSize = 16.sp,
+            color = Color(0xD2FFFFFF),
+            fontWeight = FontWeight.Normal,
+            fontFamily = FontFamily(Font(R.font.manrope)),
+            letterSpacing = 0.25.sp
+
+        )
+    )
+}
+
+
+@Composable
+@Preview
+fun TextTiTuloInfoPreview(){
+    TextTiTuloInfo()
+}
+
+@Composable
+@Preview
+fun TextDescricaoComposePreview(){
+    TextDescricaoCompose()
+}
+
 @Preview
 @Composable
 fun TextSelecaoPreview() {

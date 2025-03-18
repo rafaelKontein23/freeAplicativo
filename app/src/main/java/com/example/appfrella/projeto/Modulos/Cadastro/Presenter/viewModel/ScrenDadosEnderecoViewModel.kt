@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 class ScrenDadosEnderecoViewModel(
@@ -21,6 +22,9 @@ class ScrenDadosEnderecoViewModel(
     private val _erro = MutableStateFlow(String())
     val erro : MutableStateFlow<String> = _erro
 
+    private val _mostraModalErro = MutableStateFlow(false)
+    val mostraModalErro: StateFlow<Boolean> = _mostraModalErro
+
     private val _ufSelecionado = MutableStateFlow("Estado")
     val ufSelecionado: StateFlow<String> = _ufSelecionado
 
@@ -28,21 +32,33 @@ class ScrenDadosEnderecoViewModel(
     private val _cep = MutableStateFlow(CepResponse())
     val cep: StateFlow<CepResponse> = _cep
 
+    private val mostrarProgress = MutableStateFlow(false)
+    val mostraProgress: StateFlow<Boolean> = mostrarProgress
 
+
+    fun fecharModalErro() {
+        _mostraModalErro.value = false
+    }
     fun atualizarListaUF() {
         val povoaUF = AlimentaListas()
         _listaUF.value = povoaUF.alimentaListaUF()
     }
 
     fun buscarDadosCEP(cep: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val resultado = cadastroServices.buscaCepServices(cep)
-            if (resultado is String) {
-                _erro.value = "Erro na requisição"
-            } else {
-                _cep.value = resultado as CepResponse
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).launch {
+                mostrarProgress.value = true
+                val resultado = cadastroServices.buscaCepServices(cep)
+                withContext(Dispatchers.Main) {
+                    mostrarProgress.value = false
+                    if (resultado is String) {
+                        _erro.value = resultado
+                        _mostraModalErro.value = true
+                    } else {
+                        _cep.value = resultado as CepResponse
+                    }
+                }
             }
-
         }
     }
 

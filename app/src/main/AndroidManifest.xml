@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,24 +15,33 @@
         android:theme="@style/Theme.AppFrella"
         tools:targetApi="31">
         <activity
-            android:name=".projeto.Modulos.Cadastro.Presenter.Views.Atividades.ActCadastro"
-            android:exported="false"
-            android:label="@string/title_activity_act_endereco_pessoal"
-            android:theme="@style/Theme.AppFrella" />
-
-
-        <activity
-            android:name=".projeto.Modulos.Cadastro.Presenter.Views.Atividades.MainActivity"
-            android:exported="true">
+            android:name=".projeto.Modulos.Inicial.ActTelaInicial"
+            android:exported="true"
+            android:label="@string/title_activity_act_tela_inicial"
+            android:theme="@style/Theme.AppFrella" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".projeto.Modulos.Cadastro.Presenter.Views.Atividades.ActCadastro"
+            android:exported="false"
+            android:label="@string/title_activity_act_endereco_pessoal"
+
+            android:theme="@style/Theme.AppFrella" >
+
+        </activity>
+        <activity
+            android:name=".projeto.Modulos.Cadastro.Presenter.Views.Atividades.MainActivity"
+            android:exported="true">
+
+        </activity>
+
         <meta-data
             android:name="com.google.android.gms.fonts"
-            android:value="true"/>
+            android:value="true" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

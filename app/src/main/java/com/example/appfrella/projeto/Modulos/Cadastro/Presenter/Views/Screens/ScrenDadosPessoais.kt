@@ -1,5 +1,6 @@
 package com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens
 
+import android.util.Patterns
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.dialogs.DialogUF
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ActCadastroViewModel
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
@@ -35,6 +38,7 @@ import com.example.appfrella.projeto.UtisViews.componetes.Input.InputNumeroComum
 import com.example.appfrella.projeto.UtisViews.componetes.Input.InputTextComum
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextSelect
 import com.example.appfrella.projeto.UtisViews.dialogs.DialogErro
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -53,7 +57,6 @@ fun ScreenDadosPessoais(
     var textoBairro by remember { mutableStateOf("") }
     var textoComplemento by remember { mutableStateOf("") }
     val mostrarModal = remember { mutableStateOf(false) }
-    val mostrarDialogErro = remember { mutableStateOf(false) }
     val mostrarProgress = remember { mutableStateOf(false) }
     val focusNome = remember { FocusRequester() }
     val focusEmail = remember { FocusRequester() }
@@ -62,7 +65,11 @@ fun ScreenDadosPessoais(
     val focusComplemento = remember { FocusRequester() }
     val emRequest = remember { mutableStateOf(false) }
     val textCidade = remember { mutableStateOf("") }
-    val erro = viewModel?.erro!!.collectAsState()
+    val erroRequest = viewModel?.erro!!.collectAsState()
+    val mostraModalErro by viewModel.mostraModalErro.collectAsStateWithLifecycle()
+    val mostraProgress by viewModel.mostraProgress.collectAsStateWithLifecycle()
+
+
 
     Box(
         modifier = Modifier
@@ -85,8 +92,8 @@ fun ScreenDadosPessoais(
 
             val listaUF = viewModel.listaUF.collectAsState(emptyList()).value
 
-
             Spacer(Modifier.height(32.dp))
+
             InputTextComum(
                 text = textNome,
                 "Nome Completo",
@@ -112,7 +119,7 @@ fun ScreenDadosPessoais(
                 "exemplo@email.com",
                 "Email",
                 onTextChange = { textEmail = it },
-                error = !android.util.Patterns.EMAIL_ADDRESS.matcher(textEmail)
+                error = !Patterns.EMAIL_ADDRESS.matcher(textEmail)
                     .matches() && textEmail.length > 1,
                 focusRequester = focusEmail
             )
@@ -175,7 +182,7 @@ fun ScreenDadosPessoais(
             Botao("Continuar") {
                 viewModelActCadastro!!.atualizarTituloCabecario("Dados Pessoais")
                 if (textNome.length >= 3 &&
-                    android.util.Patterns.EMAIL_ADDRESS.matcher(textEmail).matches() &&
+                    Patterns.EMAIL_ADDRESS.matcher(textEmail).matches() &&
                     textDataNascimento.length == 10 &&
                     textDataNascimento.isIdadeValida() &&
                     textCelular.removerNaoNumericos().length >= 11 &&
@@ -199,18 +206,22 @@ fun ScreenDadosPessoais(
 
             }
 
-            if (textoCep.length == 8) {
-                mostrarProgress.value = true
-                viewModel.buscarDadosCEP(textoCep)
-
+            LaunchedEffect(textoCep) {
+                if (textoCep.length == 8) {
+                    delay(500)
+                    mostrarProgress.value = true
+                    viewModel.buscarDadosCEP(textoCep)
+                }
             }
 
-            if (erro.value != "") {
+            if (mostraModalErro) {
                 DialogErro(
-                    primaryAction = { mostrarDialogErro.value = false },
-                    erro.value
+                    mostrarDialog =mostraModalErro,
+                    primaryAction = { viewModel.fecharModalErro() },
+                    textDescricao = viewModel.erro.value ?: "Erro desconhecido"
                 )
             }
+
             if (mostrarModal.value) {
                 DialogUF(
                     primaryAction = { mostrarModal.value = false },
@@ -220,7 +231,9 @@ fun ScreenDadosPessoais(
             }
         }
 
-        ProgressBarCentralizao(mostrarProgress.value)
+        if(mostraProgress){
+            ProgressBarCentralizao(mostraProgress)
+        }
 
     }
 

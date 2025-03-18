@@ -25,11 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
 import com.example.appfrella.projeto.UtisViews.componetes.Input.InputTextBusca
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextSelecao
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextTituloDialog
 import com.example.appfrella.R
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
 
 
 @Composable

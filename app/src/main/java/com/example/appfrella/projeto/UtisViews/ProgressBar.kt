@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.dp
 fun ProgressBarCentralizao(
     verProgrres: Boolean,
 ) {
-    AnimatedVisibility(visible = verProgrres) {
+
+    if(verProgrres){
         Column(
             modifier = Modifier.fillMaxWidth().fillMaxHeight()
                 .background(color = Color(0x41908F8F)),
@@ -36,5 +37,7 @@ fun ProgressBarCentralizao(
             )
         }
     }
+
+
 
 }
