@@ -29,6 +29,8 @@ import com.example.appfrella.projeto.UtisViews.componetes.Input.InputTextBusca
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextSelecao
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextTituloDialog
 import com.example.appfrella.R
+import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponse
+import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponseItem
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
 
 
@@ -53,7 +55,7 @@ fun DialogUF(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(top =56.dp)
+                .padding(top = 56.dp)
                 .background(
                     color = Color.White,
                     shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
@@ -63,7 +65,7 @@ fun DialogUF(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 TextTituloDialog(
-                    titulo = "Cidades"
+                    titulo = "Estados"
                 )
 
                 Image(
@@ -72,7 +74,8 @@ fun DialogUF(
                     modifier = Modifier
                         .padding(top = 24.dp)
                         .height(24.dp)
-                        .size(24.dp).clickable {
+                        .size(24.dp)
+                        .clickable {
                             primaryAction()
                         },
                 )
@@ -89,7 +92,7 @@ fun DialogUF(
                     .weight(1f) // Faz a lista expandir dentro do diálogo
             ) {
                 items(listUF) { item ->
-                    TextSelecao(item, false){
+                    TextSelecao(item, false) {
                         viewModel?.atualizarUfSelecionado(item)
                         primaryAction()
 
@@ -101,8 +104,66 @@ fun DialogUF(
     }
 }
 
+
+@Composable
+fun DialogCidade(
+    primaryAction: () -> Unit,
+    listaCidades: ArrayList<CidadeResponseItem>,
+    viewModel: ScrenDadosEnderecoViewModel?
+) {
+    var text by remember { mutableStateOf("") }
+    Dialog(
+        onDismissRequest = { primaryAction() },
+        properties = DialogProperties(
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = false
+        )
+    ) {
+        Column (
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 56.dp).background(color = Color.White, shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+        )
+        {
+            Row (
+                modifier =   Modifier.fillMaxWidth().wrapContentHeight()
+            ) {
+                TextTituloDialog(titulo = "Cidades")
+                Image(
+                    painter = painterResource(R.drawable.x),
+                    contentDescription = "Fechar ",
+                    modifier = Modifier.padding(top = 24.dp)
+                )
+
+            }
+            InputTextBusca(text = text, onTextChange = { text = it })
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ){
+                items(listaCidades){item ->
+                    TextSelecao(item.nome, false){}
+                }
+            }
+        }
+
+
+    }
+
+}
+
 @Preview
 @Composable
 fun DialogCidadePreview() {
+    DialogCidade(primaryAction = {}, listaCidades = arrayListOf(), null)
+
+}
+
+@Preview
+@Composable
+fun DialogUFPreview() {
     DialogUF(primaryAction = {}, listUF = arrayListOf(), null)
+
 }

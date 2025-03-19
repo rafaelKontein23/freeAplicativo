@@ -87,9 +87,9 @@ fun Inicial(
             TextDescricaoCompose()
             Spacer(modifier = Modifier.height(28.dp))
             BotaoBranco() {
-
-
+                
             }
+
             Spacer(modifier = Modifier.height(12.dp))
             BotaoBordaBranca(){
                 val intent = Intent(context, ActCadastro::class.java)

@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.dialogs.DialogCidade
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.dialogs.DialogUF
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ActCadastroViewModel
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
@@ -57,6 +58,7 @@ fun ScreenDadosPessoais(
     var textoBairro by remember { mutableStateOf("") }
     var textoComplemento by remember { mutableStateOf("") }
     val mostrarModal = remember { mutableStateOf(false) }
+    val mostrarModalCidade = remember { mutableStateOf(false) }
     val mostrarProgress = remember { mutableStateOf(false) }
     val focusNome = remember { FocusRequester() }
     val focusEmail = remember { FocusRequester() }
@@ -66,6 +68,7 @@ fun ScreenDadosPessoais(
     val emRequest = remember { mutableStateOf(false) }
     val textCidade = remember { mutableStateOf("") }
     val erroRequest = viewModel?.erro!!.collectAsState()
+    val  listaCidades  =viewModel.listaCidades.collectAsState().value
     val mostraModalErro by viewModel.mostraModalErro.collectAsStateWithLifecycle()
     val mostraProgress by viewModel.mostraProgress.collectAsStateWithLifecycle()
 
@@ -176,8 +179,17 @@ fun ScreenDadosPessoais(
             }
 
             TextSelect("Cidade", "Cidade") {
+                if(ufSelecionado.isNotEmpty() && ufSelecionado != "Estado"){
+                    mostrarModalCidade.value = true
+
+                }else{
+                    Toast.makeText(context, "Selecione um estado", Toast.LENGTH_LONG).show()
+                }
 
             }
+
+
+
 
             Botao("Continuar") {
                 viewModelActCadastro!!.atualizarTituloCabecario("Dados Pessoais")
@@ -213,6 +225,14 @@ fun ScreenDadosPessoais(
                     viewModel.buscarDadosCEP(textoCep)
                 }
             }
+            if (mostrarModalCidade.value) {
+                DialogCidade(
+                    primaryAction = { mostrarModalCidade.value = false },
+                    listaCidades = listaCidades,
+                    viewModel
+                )
+            }
+
 
             if (mostraModalErro) {
                 DialogErro(
