@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,6 +50,12 @@ class ActCadastro : ComponentActivity() {
 fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro: ActCadastroViewModel?) {
     val navController = rememberNavController()
     val tituloCabecario = viewModelActCadastro?.tituloCabecario?.collectAsState()?.value ?: ""
+    val proximaTela = viewModelActCadastro?.proximaTela?.collectAsState()?.value ?: ""
+    LaunchedEffect(proximaTela) {
+        if (proximaTela.isNotEmpty()) {
+            navController.navigate(proximaTela)
+        }
+    }
 
 
     Column(modifier = Modifier
@@ -67,7 +74,7 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro:
             composable("dadosPessoais"){
                 ScreenDadosPessoais(viewModel, viewModelActCadastro)
             }
-          //  navController.navigate("dadosPessoais") // pra ir para a tela de dados pessoais
+
         }
     }
 }

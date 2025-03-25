@@ -204,7 +204,7 @@ fun ScreenDadosPessoais(
                     ufSelecionado.isNotEmpty() &&
                     cidadeSelecionada != "Cidade"
                 ) {
-                  na
+                  viewModelActCadastro.navegaProximaTela("")
 
                 } else {
                     Toast.makeText(
