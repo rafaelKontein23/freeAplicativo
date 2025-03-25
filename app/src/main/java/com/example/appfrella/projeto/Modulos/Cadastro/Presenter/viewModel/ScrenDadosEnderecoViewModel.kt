@@ -43,6 +43,14 @@ class ScrenDadosEnderecoViewModel(
     private val mostrarProgress = MutableStateFlow(false)
     val mostraProgress: StateFlow<Boolean> = mostrarProgress
 
+    private val _cidadeSelecionada = MutableStateFlow("Cidade")
+    val cidadeSelecionada: StateFlow<String> = _cidadeSelecionada
+
+    fun mostraModalErro( mensagenm: String) {
+        _mostraModalErro.value = true
+        _erro.value = mensagenm
+    }
+
 
     fun fecharModalErro() {
         _mostraModalErro.value = false
@@ -54,8 +62,8 @@ class ScrenDadosEnderecoViewModel(
 
     fun buscarDadosCEP(cep: String) {
         CoroutineScope(Dispatchers.Main).launch {
+            mostrarProgress.value = true
             CoroutineScope(Dispatchers.IO).launch {
-                mostrarProgress.value = true
                 val resultado = cadastroServices.buscaCepServices(cep)
                 withContext(Dispatchers.Main) {
                     mostrarProgress.value = false
@@ -88,6 +96,11 @@ class ScrenDadosEnderecoViewModel(
 
             }
         }
+    }
+
+    fun  atualizarCidadeSelecionada(cidade: String){
+        _cidadeSelecionada.value = cidade
+
     }
 
     fun atualizaMensagemErro(error: String){

@@ -131,9 +131,12 @@ fun DialogCidade(
             ) {
                 TextTituloDialog(titulo = "Cidades")
                 Image(
+
                     painter = painterResource(R.drawable.x),
                     contentDescription = "Fechar ",
-                    modifier = Modifier.padding(top = 24.dp)
+                    modifier = Modifier.padding(top = 24.dp).clickable {
+                        primaryAction()
+                    }
                 )
 
             }
@@ -144,7 +147,10 @@ fun DialogCidade(
                     .weight(1f)
             ){
                 items(listaCidades){item ->
-                    TextSelecao(item.nome, false){}
+                    TextSelecao(item.nome, false){
+                        viewModel?.atualizarCidadeSelecionada(item.nome)
+                        primaryAction()
+                    }
                 }
             }
         }

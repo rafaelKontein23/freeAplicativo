@@ -20,7 +20,7 @@ class CadastroServices ( val cadastroRepository: CadastroRepository)  {
     }
 
 
-    fun buscaCidadeServices(uf:String) : Any? {
+   fun buscaCidadeServices(uf:String) : Any? {
         val resultado = cadastroRepository.buscaCidadeRepository(uf)
         if (resultado?.valido == true) {
             val jsonDados = Gson().toJson(resultado.dados)

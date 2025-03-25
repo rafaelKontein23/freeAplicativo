@@ -66,11 +66,11 @@ fun ScreenDadosPessoais(
     val focusBairro = remember { FocusRequester() }
     val focusComplemento = remember { FocusRequester() }
     val emRequest = remember { mutableStateOf(false) }
-    val textCidade = remember { mutableStateOf("") }
-    val erroRequest = viewModel?.erro!!.collectAsState()
-    val  listaCidades  =viewModel.listaCidades.collectAsState().value
+    val  listaCidades  =viewModel!!.listaCidades.collectAsState().value
     val mostraModalErro by viewModel.mostraModalErro.collectAsStateWithLifecycle()
     val mostraProgress by viewModel.mostraProgress.collectAsStateWithLifecycle()
+    val cep by viewModel.cep.collectAsState()
+    val cidadeSelecionada by viewModel.cidadeSelecionada.collectAsState()
 
 
 
@@ -178,7 +178,7 @@ fun ScreenDadosPessoais(
 
             }
 
-            TextSelect("Cidade", "Cidade") {
+            TextSelect("Cidade", cidadeSelecionada) {
                 if(ufSelecionado.isNotEmpty() && ufSelecionado != "Estado"){
                     mostrarModalCidade.value = true
 
@@ -195,15 +195,16 @@ fun ScreenDadosPessoais(
                 viewModelActCadastro!!.atualizarTituloCabecario("Dados Pessoais")
                 if (textNome.length >= 3 &&
                     Patterns.EMAIL_ADDRESS.matcher(textEmail).matches() &&
-                    textDataNascimento.length == 10 &&
+                    textDataNascimento.length == 8 &&
                     textDataNascimento.isIdadeValida() &&
                     textCelular.removerNaoNumericos().length >= 11 &&
-                    textoCep.removerNaoNumericos().length > 9 &&
+                    textoCep.removerNaoNumericos().length >= 8 &&
                     textoLogradouro.length >= 3 &&
                     textoBairro.length >= 3 &&
-                    ufSelecionado.isNotEmpty()
+                    ufSelecionado.isNotEmpty() &&
+                    cidadeSelecionada != "Cidade"
                 ) {
-
+                  na
 
                 } else {
                     Toast.makeText(
@@ -211,8 +212,9 @@ fun ScreenDadosPessoais(
                         "Preencha todos os campos vazios ou marcados",
                         Toast.LENGTH_LONG
                     ).show()
-                    viewModel.atualizaMensagemErro("Preencha a da de nascismentos")
-
+                    if( !textDataNascimento.isIdadeValida() ){
+                        viewModel.mostraModalErro("Idade Invalida, verifique o campo")
+                    }
 
                 }
 
@@ -220,9 +222,14 @@ fun ScreenDadosPessoais(
 
             LaunchedEffect(textoCep) {
                 if (textoCep.length == 8) {
-                    delay(500)
                     mostrarProgress.value = true
                     viewModel.buscarDadosCEP(textoCep)
+                }
+            }
+
+            LaunchedEffect(cidadeSelecionada) {
+                if (cidadeSelecionada.isNotEmpty()) {
+                    viewModel.atualizarCidadeSelecionada(cidadeSelecionada)
                 }
             }
             if (mostrarModalCidade.value) {
@@ -257,16 +264,19 @@ fun ScreenDadosPessoais(
 
     }
 
-    viewModel.cep.collectAsState().value.let { cep ->
+    LaunchedEffect(cep) {
         emRequest.value = false
         mostrarProgress.value = false
-        if(cep.uf.isNotEmpty()){
+        if (cep.uf.isNotEmpty()) {
             textoLogradouro = cep.logradouro
             textoBairro = cep.bairro
             textoComplemento = cep.complemento
-            viewModel.atualizarUfSelecionado(cep.uf)
-        }
 
+            if (viewModel.ufSelecionado.value != cep.uf) {
+                viewModel.atualizarCidadeSelecionada(cep.regiao)
+                viewModel.atualizarUfSelecionado(cep.uf)
+            }
+        }
     }
 
 }
