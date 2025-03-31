@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,8 +30,9 @@ import com.example.appfrella.projeto.UtisViews.componetes.Input.InputTextBusca
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextSelecao
 import com.example.appfrella.projeto.UtisViews.componetes.Text.TextTituloDialog
 import com.example.appfrella.R
-import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponse
+import com.example.appfrella.projeto.Modulos.Cadastro.Model.BancoResponseItem
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponseItem
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosBancariosViewModel
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
 
 
@@ -119,24 +121,32 @@ fun DialogCidade(
             usePlatformDefaultWidth = false
         )
     ) {
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(top = 56.dp).background(color = Color.White, shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+                .padding(top = 56.dp)
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+                )
         )
         {
-            Row (
-                modifier =   Modifier.fillMaxWidth().wrapContentHeight()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
             ) {
                 TextTituloDialog(titulo = "Cidades")
                 Image(
 
                     painter = painterResource(R.drawable.x),
                     contentDescription = "Fechar ",
-                    modifier = Modifier.padding(top = 24.dp).clickable {
-                        primaryAction()
-                    }
+                    modifier = Modifier
+                        .padding(top = 24.dp)
+                        .clickable {
+                            primaryAction()
+                        }
                 )
 
             }
@@ -145,10 +155,74 @@ fun DialogCidade(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-            ){
-                items(listaCidades){item ->
-                    TextSelecao(item.nome, false){
+            ) {
+                items(listaCidades) { item ->
+                    TextSelecao(item.nome, false) {
                         viewModel?.atualizarCidadeSelecionada(item.nome)
+                        primaryAction()
+                    }
+                }
+            }
+        }
+
+
+    }
+
+}
+
+
+@Composable
+fun DialogBanco(
+    primaryAction: () -> Unit,
+    listBanco: List<BancoResponseItem>,
+    viewModel: ScrenDadosBancariosViewModel?
+) {
+    var textBuscaBanco by remember { mutableStateOf("") }
+    Dialog(
+        onDismissRequest = { primaryAction() },
+
+        properties = DialogProperties(
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = false
+        )
+    ) {
+
+        Column (
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 56.dp)
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+                )
+        ) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            ){
+                TextTituloDialog(titulo = "Bancos")
+                Image(
+                    painter = painterResource(R.drawable.x),
+                    contentDescription = "Fechar ",
+                    modifier = Modifier
+                        .padding(top = 24.dp)
+                )
+            }
+            InputTextBusca(
+                textBuscaBanco,
+                "Busque por bancos...",
+                onTextChange = { textBuscaBanco = it })
+
+            LaunchedEffect(textBuscaBanco) {
+            }
+
+            LazyColumn {
+                items(listBanco) { item ->
+                    TextSelecao(item.name, false) {
+                        viewModel?.setBancoSelecionado(item.fullName)
                         primaryAction()
                     }
                 }

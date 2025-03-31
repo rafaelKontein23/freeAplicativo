@@ -18,10 +18,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Factory.ActCadastroViewModelFactory
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Factory.ScrenDadosBancariosFactory
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Factory.ScrrenDadosEnderecoPessoalFactory
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens.ScreenDadosPessoais
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens.ScrenDadosRecebimento
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens.SrenDadosProfissionais
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ActCadastroViewModel
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosBancariosViewModel
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
 import com.example.appfrella.projeto.UtisViews.componetes.Topo.TopoCadstro
 import com.example.appfrella.projeto.theme.AppFrellaTheme
@@ -33,13 +36,17 @@ class ActCadastro : ComponentActivity() {
         enableEdgeToEdge()
         val factory = ScrrenDadosEnderecoPessoalFactory(this)
         val viewModelFactory = ActCadastroViewModelFactory()
+        val viewModelFactoryRecebimento  = ScrenDadosBancariosFactory(this)
+
         val viewModel = ViewModelProvider(this, factory).get(ScrenDadosEnderecoViewModel::class.java)
         val viewModelCadastro = ViewModelProvider(this, viewModelFactory).get(ActCadastroViewModel::class.java)
+        val viewModelRecebimento = ViewModelProvider(this, viewModelFactoryRecebimento).get(ScrenDadosBancariosViewModel::class.java)
+
         setContent {
 
             AppFrellaTheme {
 
-                AppNavigation(viewModel, viewModelCadastro
+                AppNavigation(viewModel, viewModelCadastro, viewModelRecebimento
                 )
             }
         }
@@ -47,10 +54,11 @@ class ActCadastro : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro: ActCadastroViewModel?) {
+fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro: ActCadastroViewModel?, viewModelRecebimento: ScrenDadosBancariosViewModel? = null) {
     val navController = rememberNavController()
     val tituloCabecario = viewModelActCadastro?.tituloCabecario?.collectAsState()?.value ?: ""
     val proximaTela = viewModelActCadastro?.proximaTela?.collectAsState()?.value ?: ""
+
     LaunchedEffect(proximaTela) {
         if (proximaTela.isNotEmpty()) {
             navController.navigate(proximaTela)
@@ -69,10 +77,13 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro:
             startDestination = "dadosPessoais"
         ) {
             composable("dadosProfissionais") {
-                SrenDadosProfissionais()
+                SrenDadosProfissionais(viewModelActCadastro)
             }
             composable("dadosPessoais"){
                 ScreenDadosPessoais(viewModel, viewModelActCadastro)
+            }
+            composable("dadosRecebimentos") {
+                ScrenDadosRecebimento(viewModelRecebimento)
             }
 
         }

@@ -1,5 +1,6 @@
 package com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,13 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,22 +24,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-import com.example.appfrella.R
+import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ActCadastroViewModel
+import com.example.appfrella.projeto.UtisViews.componetes.Botao.BotaoSemModifer
 import com.example.appfrella.projeto.UtisViews.componetes.Input.InputTextComum
-import com.example.appfrella.projeto.UtisViews.componetes.Text.TextSelect
 
 
 @Composable
-fun SrenDadosProfissionais() {
-    val stateScroll = rememberScrollState()
+fun SrenDadosProfissionais(
+    viewModel: ActCadastroViewModel?
 
+) {
+    val context = LocalContext.current
+    val stateScroll = rememberScrollState()
+    var text by remember { mutableStateOf("") }
+    var textRegiao by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,15 +53,14 @@ fun SrenDadosProfissionais() {
                 .background(color = Color.White)
         ) {
             Spacer(Modifier.height(32.dp))
-            var text by remember { mutableStateOf("") }
-            var textRegiao by remember { mutableStateOf("") }
+
 
             InputTextComum(
                 text = text,
                 placeHolder = "descreva sua profissão...",
                 titulo = "Profissão",
                 onTextChange = { text = it },
-                error = false,
+                error = text.length in 1..2,
                 focusRequester = FocusRequester()
             )
 
@@ -72,56 +69,33 @@ fun SrenDadosProfissionais() {
                 placeHolder = "descreva região de atuação...",
                 titulo = "Area atuaçao",
                 onTextChange = { textRegiao = it },
-                error = false,
+                error =  textRegiao.length in 1 ..2 ,
                 focusRequester = FocusRequester()
             )
-
-            TextSelect(
-                titulo = "Disponibilidade",
-                slecionado = "Selecione sua disponibilidade..."
-            ) {}
         }
 
-        Button(onClick = {
-            {}
-        }, modifier = Modifier.fillMaxWidth()
-            .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
-            .height(56.dp)
-            .align(Alignment.BottomCenter)
-            .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp)),
-            colors = ButtonDefaults.buttonColors(
-                Color(0xFF374BFF),
-                contentColor = Color.White
-            )
+       BotaoSemModifer(Modifier.fillMaxWidth()
+           .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
+           .height(56.dp)
+           .align(Alignment.BottomCenter)
+           .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp))) {
+           if(
+               text.length < 2 ||
+               textRegiao.length <2
+           ){
+               Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+           }else{
+               viewModel?.atualizarTituloCabecario("Dados Bancarios")
 
-
-        ) {
-            Row (Modifier.fillMaxWidth()){
-                Text(text = "Continuar",
-                    modifier = Modifier.weight(1f).padding(top = 2.dp),
-                    style =  TextStyle(
-                        fontFamily = FontFamily(Font(R.font.manrope))
-
-                    )
-                )
-                Image(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable(
-                        ){},
-                    painter = painterResource(id = R.drawable.seta_direita),
-                    contentDescription = null
-                )
-            }
-        }
-
+               viewModel?.navegaProximaTela("dadosRecebimentos")
+           }
+       }
     }
-
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SrenDadosProfissionaisPreview() {
-    SrenDadosProfissionais()
+    SrenDadosProfissionais(null)
 }
+

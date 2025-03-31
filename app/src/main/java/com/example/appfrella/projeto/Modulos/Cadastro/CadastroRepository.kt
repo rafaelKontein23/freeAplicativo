@@ -51,4 +51,25 @@ class CadastroRepository(context: Context) {
             return RespostaPadraoAPI(false, null, Constantes.erroInternet)
         }
     }
+
+    fun buscaBancoRepository(): RespostaPadraoAPI? {
+        try {
+            val request = retrofit.buscaBanco().execute()
+            if(request.isSuccessful){
+                val response = request.body()?.string()
+                val gson = Gson()
+                val bancoResponse = gson.fromJson(response, RespostaPadraoAPI::class.java)
+                return bancoResponse
+            }else{
+                return RespostaPadraoAPI(false, null, "Algo deu ao buscar bancos ")
+            }
+
+        }catch (e:Exception){
+            e.printStackTrace()
+            return RespostaPadraoAPI(false, null, "Algo deu ao buscar bancos ")
+        }catch (i: IOException){
+            i.printStackTrace()
+            return RespostaPadraoAPI(false, null, Constantes.erroInternet)
+        }
+    }
 }

@@ -15,4 +15,7 @@ interface SincronoCadastro {
     @POST("/cidades/{uf}")
     fun buscaCidade(@Path("uf") uf:String):Call<ResponseBody>
 
+    @GET("/banco/buscaBanco")
+    fun buscaBanco():Call<ResponseBody>
+
 }

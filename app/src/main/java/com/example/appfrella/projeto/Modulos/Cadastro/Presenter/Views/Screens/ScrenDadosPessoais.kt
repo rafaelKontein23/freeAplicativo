@@ -204,7 +204,8 @@ fun ScreenDadosPessoais(
                     ufSelecionado.isNotEmpty() &&
                     cidadeSelecionada != "Cidade"
                 ) {
-                  viewModelActCadastro.navegaProximaTela("")
+                  viewModelActCadastro.atualizarTituloCabecario("Dados Profissional")
+                  viewModelActCadastro.navegaProximaTela("dadosProfissionais")
 
                 } else {
                     Toast.makeText(
@@ -215,9 +216,7 @@ fun ScreenDadosPessoais(
                     if( !textDataNascimento.isIdadeValida() ){
                         viewModel.mostraModalErro("Idade Invalida, verifique o campo")
                     }
-
                 }
-
             }
 
             LaunchedEffect(textoCep) {

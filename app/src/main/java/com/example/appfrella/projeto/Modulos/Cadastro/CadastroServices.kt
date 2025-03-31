@@ -1,5 +1,6 @@
 package com.example.appfrella.projeto.Modulos.Cadastro
 
+import com.example.appfrella.projeto.Modulos.Cadastro.Model.BancoResponseItem
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CepResponse
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponse
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponseItem
@@ -27,6 +28,20 @@ class CadastroServices ( val cadastroRepository: CadastroRepository)  {
             val gson = Gson()
             val cidadesList: List<CidadeResponseItem> = gson.fromJson(jsonDados, Array<CidadeResponseItem>::class.java).toList()
             return cidadesList
+        }else{
+            return resultado?.mensagem;
+        }
+    }
+
+    fun buscaBancoServices() : Any? {
+        val resultado = cadastroRepository.buscaBancoRepository()
+
+        if (resultado?.valido == true) {
+            val jsonDados = Gson().toJson(resultado.dados)
+            val gson = Gson()
+            val bancoList: List<BancoResponseItem> = gson.fromJson(jsonDados, Array<BancoResponseItem>::class.java).toList()
+            return bancoList
+
         }else{
             return resultado?.mensagem;
         }
