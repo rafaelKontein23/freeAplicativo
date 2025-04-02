@@ -62,6 +62,7 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro:
     LaunchedEffect(proximaTela) {
         if (proximaTela.isNotEmpty()) {
             navController.navigate(proximaTela)
+            viewModelActCadastro?.resetaTela()
         }
     }
 

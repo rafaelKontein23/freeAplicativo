@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -49,14 +50,14 @@ fun ScreenDadosPessoais(
 ) {
     val stateScroll = rememberScrollState()
     val context = LocalContext.current
-    var textNome by remember { mutableStateOf("") }
-    var textEmail by remember { mutableStateOf("") }
-    var textDataNascimento by remember { mutableStateOf("") }
-    var textCelular by remember { mutableStateOf("") }
-    var textoCep by remember { mutableStateOf("") }
-    var textoLogradouro by remember { mutableStateOf("") }
-    var textoBairro by remember { mutableStateOf("") }
-    var textoComplemento by remember { mutableStateOf("") }
+    var textNome by rememberSaveable  { mutableStateOf("") }
+    var textEmail by rememberSaveable  { mutableStateOf("") }
+    var textDataNascimento by rememberSaveable  { mutableStateOf("") }
+    var textCelular by rememberSaveable  { mutableStateOf("") }
+    var textoCep by rememberSaveable  { mutableStateOf("") }
+    var textoLogradouro by rememberSaveable  { mutableStateOf("") }
+    var textoBairro by rememberSaveable  { mutableStateOf("") }
+    var textoComplemento by rememberSaveable  { mutableStateOf("") }
     val mostrarModal = remember { mutableStateOf(false) }
     val mostrarModalCidade = remember { mutableStateOf(false) }
     val mostrarProgress = remember { mutableStateOf(false) }

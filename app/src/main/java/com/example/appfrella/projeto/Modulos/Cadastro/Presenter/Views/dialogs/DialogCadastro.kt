@@ -208,7 +208,9 @@ fun DialogBanco(
                     painter = painterResource(R.drawable.x),
                     contentDescription = "Fechar ",
                     modifier = Modifier
-                        .padding(top = 24.dp)
+                        .padding(top = 24.dp).clickable {
+                            primaryAction()
+                        }
                 )
             }
             InputTextBusca(

@@ -15,7 +15,13 @@ class ActCadastroViewModel : ViewModel() {
         _tituloCabecario.value = novoTitulo
     }
 
+
+
     fun navegaProximaTela(novaTela: String){
         _proximaTela.value = novaTela
+    }
+    fun resetaTela(){
+        _proximaTela.value = ""
+
     }
 }

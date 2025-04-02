@@ -43,6 +43,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion"}
 converterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version = "2.9.0" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
