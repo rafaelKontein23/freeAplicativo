@@ -7,8 +7,9 @@ import com.example.appfrella.projeto.Utils.RespostaPadraoAPI
 import com.google.gson.Gson
 import java.io.IOException
 
-class CadastroRepository(context: Context) {
-    val retrofit = RetrofitConfig().createService(SincronoCadastro::class.java)
+open class CadastroRepository(
+    private val retrofit: SincronoCadastro
+) {
 
     fun buscaCepRepository(cep:String): RespostaPadraoAPI? {
         try {

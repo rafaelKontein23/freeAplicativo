@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,11 +37,10 @@ class ActCadastro : ComponentActivity() {
         enableEdgeToEdge()
         val factory = ScrrenDadosEnderecoPessoalFactory(this)
         val viewModelFactory = ActCadastroViewModelFactory()
-        val viewModelFactoryRecebimento  = ScrenDadosBancariosFactory(this)
+        val viewModelRecebimento: ScrenDadosBancariosViewModel by viewModels()
 
         val viewModel = ViewModelProvider(this, factory).get(ScrenDadosEnderecoViewModel::class.java)
         val viewModelCadastro = ViewModelProvider(this, viewModelFactory).get(ActCadastroViewModel::class.java)
-        val viewModelRecebimento = ViewModelProvider(this, viewModelFactoryRecebimento).get(ScrenDadosBancariosViewModel::class.java)
 
         setContent {
 

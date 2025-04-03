@@ -57,6 +57,12 @@ dependencies {
     implementation libs.androidx.navigation.compose
     implementation libs.retrofit
     implementation libs.converterGson
+    implementation libs.mokitoCore
+    implementation libs.mokito
+    implementation libs.mockk
+    implementation libs.mock
+    implementation libs.hilt
+    implementation libs.kapt
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
