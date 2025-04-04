@@ -6,6 +6,7 @@ import com.example.appfrella.projeto.Modulos.Cadastro.Model.CepResponse
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponse
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponseItem
 import com.example.appfrella.projeto.Utils.AlimentaListas
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +14,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
+import javax.inject.Inject
 
-class ScrenDadosEnderecoViewModel(
+@HiltViewModel
+class ScrenDadosEnderecoViewModel @Inject constructor(
     private val cadastroServices: CadastroServices
 ) : ViewModel() {
 

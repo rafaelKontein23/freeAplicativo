@@ -1,13 +1,12 @@
 package com.example.appfrella.projeto.Modulos.Cadastro
 
-import android.content.Context
-import com.example.appfrella.projeto.Config.RetrofitConfig
 import com.example.appfrella.projeto.Utils.Constantes
 import com.example.appfrella.projeto.Utils.RespostaPadraoAPI
 import com.google.gson.Gson
 import java.io.IOException
+import javax.inject.Inject
 
-open class CadastroRepository(
+open class CadastroRepository @Inject constructor(
     private val retrofit: SincronoCadastro
 ) {
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.appfrella.projeto.Modulos.Cadastro.CadastroServices
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.BancoResponseItem
 import com.example.appfrella.projeto.Utils.RespostaPadraoAPI
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ScrenDadosBancariosViewModel @Inject constructor (
     val cadastroServices: CadastroServices
 ) :ViewModel() {

@@ -18,9 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Factory.ActCadastroViewModelFactory
-import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Factory.ScrenDadosBancariosFactory
-import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Factory.ScrrenDadosEnderecoPessoalFactory
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens.ScreenDadosPessoais
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens.ScrenDadosRecebimento
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.Views.Screens.SrenDadosProfissionais
@@ -29,18 +26,17 @@ import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenD
 import com.example.appfrella.projeto.Modulos.Cadastro.Presenter.viewModel.ScrenDadosEnderecoViewModel
 import com.example.appfrella.projeto.UtisViews.componetes.Topo.TopoCadstro
 import com.example.appfrella.projeto.theme.AppFrellaTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ActCadastro : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val factory = ScrrenDadosEnderecoPessoalFactory(this)
-        val viewModelFactory = ActCadastroViewModelFactory()
+        val viewModelCadastro :  ActCadastroViewModel by viewModels()
         val viewModelRecebimento: ScrenDadosBancariosViewModel by viewModels()
 
-        val viewModel = ViewModelProvider(this, factory).get(ScrenDadosEnderecoViewModel::class.java)
-        val viewModelCadastro = ViewModelProvider(this, viewModelFactory).get(ActCadastroViewModel::class.java)
+        val viewModel : ScrenDadosEnderecoViewModel by viewModels()
 
         setContent {
 

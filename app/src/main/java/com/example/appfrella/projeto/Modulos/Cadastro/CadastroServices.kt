@@ -5,9 +5,11 @@ import com.example.appfrella.projeto.Modulos.Cadastro.Model.CepResponse
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponse
 import com.example.appfrella.projeto.Modulos.Cadastro.Model.CidadeResponseItem
 import com.google.gson.Gson
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class CadastroServices ( val cadastroRepository: CadastroRepository)  {
+@Singleton
+class CadastroServices @Inject constructor ( val cadastroRepository: CadastroRepository)  {
 
 
     fun  buscaCepServices(cep:String) : Any? {

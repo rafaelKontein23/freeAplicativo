@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    id("org.jetbrains.kotlin.kapt")
+
 }
 
 android {
@@ -23,6 +26,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    packaging {
+        resources {
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/LICENSE-notice.md"
+            excludes += "META-INF/gradle/incremental.annotation.processors"
+
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -61,8 +72,9 @@ dependencies {
     implementation libs.mokito
     implementation libs.mockk
     implementation libs.mock
-    implementation libs.hilt
-    implementation libs.kapt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
