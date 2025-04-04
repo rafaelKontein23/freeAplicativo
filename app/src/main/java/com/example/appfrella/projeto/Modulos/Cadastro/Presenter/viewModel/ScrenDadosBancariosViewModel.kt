@@ -14,9 +14,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ScrenDadosBancariosViewModel @Inject constructor (
+class ScrenDadosBancariosViewModel @Inject constructor(
     val cadastroServices: CadastroServices
-) :ViewModel() {
+) : ViewModel() {
     private val _bancoSelecionado = MutableStateFlow("Banco")
     val bancoSelecionado: StateFlow<String> = _bancoSelecionado
 
@@ -36,7 +36,7 @@ class ScrenDadosBancariosViewModel @Inject constructor (
     val mostraProgress: StateFlow<Boolean> = _mostraProgress
 
 
-    fun mostraModalErro( mensagenm: String, mostraModal: Boolean = true) {
+    fun mostraModalErro(mensagenm: String, mostraModal: Boolean = true) {
         _mostraModalErro.value = mostraModal
         _mensagemErro.value = mensagenm
     }
@@ -46,21 +46,20 @@ class ScrenDadosBancariosViewModel @Inject constructor (
     }
 
 
-
     fun setBancoSelecionado(banco: String) {
         _bancoSelecionado.value = banco
     }
 
-    fun buscarBanco(){
+    fun buscarBanco() {
         MainScope().launch {
             _mostraProgress.value = true
             CoroutineScope(Dispatchers.IO).launch {
                 val result = cadastroServices.buscaBancoServices()
                 MainScope().launch {
                     _mostraProgress.value = false
-                    if(result is String  ){
+                    if (result is String) {
                         mostraModalErro(result)
-                    }else{
+                    } else {
                         _litaBanco.value = result as ArrayList<BancoResponseItem>
                     }
                 }

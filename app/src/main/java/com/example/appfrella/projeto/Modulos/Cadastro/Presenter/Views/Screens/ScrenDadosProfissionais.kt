@@ -40,8 +40,8 @@ fun SrenDadosProfissionais(
 ) {
     val context = LocalContext.current
     val stateScroll = rememberScrollState()
-    var text by rememberSaveable  { mutableStateOf("") }
-    var textRegiao by rememberSaveable  { mutableStateOf("") }
+    var text by rememberSaveable { mutableStateOf("") }
+    var textRegiao by rememberSaveable { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +54,6 @@ fun SrenDadosProfissionais(
                 .background(color = Color.White)
         ) {
             Spacer(Modifier.height(32.dp))
-
 
             InputTextComum(
                 text = text,
@@ -70,27 +69,30 @@ fun SrenDadosProfissionais(
                 placeHolder = "descreva região de atuação...",
                 titulo = "Area atuaçao",
                 onTextChange = { textRegiao = it },
-                error =  textRegiao.length in 1 ..2 ,
+                error = textRegiao.length in 1..2,
                 focusRequester = FocusRequester()
             )
         }
 
-       BotaoSemModifer(Modifier.fillMaxWidth()
-           .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
-           .height(56.dp)
-           .align(Alignment.BottomCenter)
-           .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp))) {
-           if(
-               text.length < 2 ||
-               textRegiao.length <2
-           ){
-               Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
-           }else{
-               viewModel?.atualizarTituloCabecario("Dados Bancarios")
+        BotaoSemModifer(
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 24.dp, top = 48.dp, end = 24.dp, bottom = 56.dp)
+                .height(56.dp)
+                .align(Alignment.BottomCenter)
+                .background(Color(0xFF374BFF), shape = RoundedCornerShape(size = 10.dp))
+        ) {
+            if (
+                text.length < 2 ||
+                textRegiao.length < 2
+            ) {
+                Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel?.atualizarTituloCabecario("Dados Bancarios")
 
-               viewModel?.navegaProximaTela("dadosRecebimentos")
-           }
-       }
+                viewModel?.navegaProximaTela("dadosRecebimentos")
+            }
+        }
     }
 }
 

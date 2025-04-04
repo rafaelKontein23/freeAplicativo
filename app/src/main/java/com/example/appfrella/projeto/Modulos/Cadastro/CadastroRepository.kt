@@ -10,43 +10,43 @@ open class CadastroRepository @Inject constructor(
     private val retrofit: SincronoCadastro
 ) {
 
-    fun buscaCepRepository(cep:String): RespostaPadraoAPI? {
+    fun buscaCepRepository(cep: String): RespostaPadraoAPI? {
         try {
             val request = retrofit.buscaCep(cep).execute()
-            if(request.isSuccessful){
+            if (request.isSuccessful) {
                 val response = request.body()?.string()
                 val gson = Gson()
                 val cepResponse = gson.fromJson(response, RespostaPadraoAPI::class.java)
                 return cepResponse
-            }else{
+            } else {
                 return RespostaPadraoAPI(false, null, "Algo deu ao buscar Dados Do Cep")
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             return RespostaPadraoAPI(false, null, "Algo deu ao buscar Dados Do Cep")
 
-        }catch (io: IOException){
+        } catch (io: IOException) {
             io.printStackTrace()
             return RespostaPadraoAPI(false, null, Constantes.erroInternet)
         }
     }
 
-    fun buscaCidadeRepository(uf:String): RespostaPadraoAPI? {
+    fun buscaCidadeRepository(uf: String): RespostaPadraoAPI? {
         try {
             val request = retrofit.buscaCidade(uf).execute()
-            if(request.isSuccessful){
+            if (request.isSuccessful) {
                 val response = request.body()?.string()
                 val gson = Gson()
                 val cidadeResponse = gson.fromJson(response, RespostaPadraoAPI::class.java)
                 return cidadeResponse
-            }else{
+            } else {
                 return RespostaPadraoAPI(false, null, "Algo deu ao buscar cidades ")
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             return RespostaPadraoAPI(false, null, "Algo deu ao buscar cidades ")
-        }catch (i: IOException){
+        } catch (i: IOException) {
             i.printStackTrace()
             return RespostaPadraoAPI(false, null, Constantes.erroInternet)
         }
@@ -55,19 +55,19 @@ open class CadastroRepository @Inject constructor(
     fun buscaBancoRepository(): RespostaPadraoAPI? {
         try {
             val request = retrofit.buscaBanco().execute()
-            if(request.isSuccessful){
+            if (request.isSuccessful) {
                 val response = request.body()?.string()
                 val gson = Gson()
                 val bancoResponse = gson.fromJson(response, RespostaPadraoAPI::class.java)
                 return bancoResponse
-            }else{
+            } else {
                 return RespostaPadraoAPI(false, null, "Algo deu ao buscar bancos ")
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             return RespostaPadraoAPI(false, null, "Algo deu ao buscar bancos ")
-        }catch (i: IOException){
+        } catch (i: IOException) {
             i.printStackTrace()
             return RespostaPadraoAPI(false, null, Constantes.erroInternet)
         }

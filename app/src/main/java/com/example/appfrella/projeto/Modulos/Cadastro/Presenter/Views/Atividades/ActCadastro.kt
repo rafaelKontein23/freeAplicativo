@@ -33,16 +33,17 @@ class ActCadastro : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val viewModelCadastro :  ActCadastroViewModel by viewModels()
+        val viewModelCadastro: ActCadastroViewModel by viewModels()
         val viewModelRecebimento: ScrenDadosBancariosViewModel by viewModels()
 
-        val viewModel : ScrenDadosEnderecoViewModel by viewModels()
+        val viewModel: ScrenDadosEnderecoViewModel by viewModels()
 
         setContent {
 
             AppFrellaTheme {
 
-                AppNavigation(viewModel, viewModelCadastro, viewModelRecebimento
+                AppNavigation(
+                    viewModel, viewModelCadastro, viewModelRecebimento
                 )
             }
         }
@@ -50,7 +51,11 @@ class ActCadastro : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro: ActCadastroViewModel?, viewModelRecebimento: ScrenDadosBancariosViewModel? = null) {
+fun AppNavigation(
+    viewModel: ScrenDadosEnderecoViewModel?,
+    viewModelActCadastro: ActCadastroViewModel?,
+    viewModelRecebimento: ScrenDadosBancariosViewModel? = null
+) {
     val navController = rememberNavController()
     val tituloCabecario = viewModelActCadastro?.tituloCabecario?.collectAsState()?.value ?: ""
     val proximaTela = viewModelActCadastro?.proximaTela?.collectAsState()?.value ?: ""
@@ -62,12 +67,14 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro:
         }
     }
 
-
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
         TopoCadstro(tituloCabecario) {
             navController.popBackStack()
+
         }
         NavHost(
             navController = navController,
@@ -76,7 +83,7 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro:
             composable("dadosProfissionais") {
                 SrenDadosProfissionais(viewModelActCadastro)
             }
-            composable("dadosPessoais"){
+            composable("dadosPessoais") {
                 ScreenDadosPessoais(viewModel, viewModelActCadastro)
             }
             composable("dadosRecebimentos") {
@@ -91,6 +98,6 @@ fun AppNavigation(viewModel: ScrenDadosEnderecoViewModel?, viewModelActCadastro:
 @Composable
 fun GreetingPreview() {
     AppFrellaTheme {
-        AppNavigation( null, null)
+        AppNavigation(null, null)
     }
 }

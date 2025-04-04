@@ -50,14 +50,14 @@ fun ScreenDadosPessoais(
 ) {
     val stateScroll = rememberScrollState()
     val context = LocalContext.current
-    var textNome by rememberSaveable  { mutableStateOf("") }
-    var textEmail by rememberSaveable  { mutableStateOf("") }
-    var textDataNascimento by rememberSaveable  { mutableStateOf("") }
-    var textCelular by rememberSaveable  { mutableStateOf("") }
-    var textoCep by rememberSaveable  { mutableStateOf("") }
-    var textoLogradouro by rememberSaveable  { mutableStateOf("") }
-    var textoBairro by rememberSaveable  { mutableStateOf("") }
-    var textoComplemento by rememberSaveable  { mutableStateOf("") }
+    var textNome by rememberSaveable { mutableStateOf("") }
+    var textEmail by rememberSaveable { mutableStateOf("") }
+    var textDataNascimento by rememberSaveable { mutableStateOf("") }
+    var textCelular by rememberSaveable { mutableStateOf("") }
+    var textoCep by rememberSaveable { mutableStateOf("") }
+    var textoLogradouro by rememberSaveable { mutableStateOf("") }
+    var textoBairro by rememberSaveable { mutableStateOf("") }
+    var textoComplemento by rememberSaveable { mutableStateOf("") }
     val mostrarModal = remember { mutableStateOf(false) }
     val mostrarModalCidade = remember { mutableStateOf(false) }
     val mostrarProgress = remember { mutableStateOf(false) }
@@ -67,7 +67,7 @@ fun ScreenDadosPessoais(
     val focusBairro = remember { FocusRequester() }
     val focusComplemento = remember { FocusRequester() }
     val emRequest = remember { mutableStateOf(false) }
-    val  listaCidades  =viewModel!!.listaCidades.collectAsState().value
+    val listaCidades = viewModel!!.listaCidades.collectAsState().value
     val mostraModalErro by viewModel.mostraModalErro.collectAsStateWithLifecycle()
     val mostraProgress by viewModel.mostraProgress.collectAsStateWithLifecycle()
     val cep by viewModel.cep.collectAsState()
@@ -101,7 +101,7 @@ fun ScreenDadosPessoais(
             InputTextComum(
                 text = textNome,
                 "Nome Completo",
-                "nome completo",
+                "Nome completo",
                 onTextChange = { textNome = it },
                 error = textNome.length in 1..3,
                 focusRequester = focusNome
@@ -180,10 +180,10 @@ fun ScreenDadosPessoais(
             }
 
             TextSelect("Cidade", cidadeSelecionada) {
-                if(ufSelecionado.isNotEmpty() && ufSelecionado != "Estado"){
+                if (ufSelecionado.isNotEmpty() && ufSelecionado != "Estado") {
                     mostrarModalCidade.value = true
 
-                }else{
+                } else {
                     Toast.makeText(context, "Selecione um estado", Toast.LENGTH_LONG).show()
                 }
 
@@ -205,8 +205,8 @@ fun ScreenDadosPessoais(
                     ufSelecionado.isNotEmpty() &&
                     cidadeSelecionada != "Cidade"
                 ) {
-                  viewModelActCadastro.atualizarTituloCabecario("Dados Profissional")
-                  viewModelActCadastro.navegaProximaTela("dadosProfissionais")
+                    viewModelActCadastro.atualizarTituloCabecario("Dados Profissional")
+                    viewModelActCadastro.navegaProximaTela("dadosProfissionais")
 
                 } else {
                     Toast.makeText(
@@ -214,7 +214,7 @@ fun ScreenDadosPessoais(
                         "Preencha todos os campos vazios ou marcados",
                         Toast.LENGTH_LONG
                     ).show()
-                    if( !textDataNascimento.isIdadeValida() ){
+                    if (!textDataNascimento.isIdadeValida()) {
                         viewModel.mostraModalErro("Idade Invalida, verifique o campo")
                     }
                 }
@@ -243,7 +243,7 @@ fun ScreenDadosPessoais(
 
             if (mostraModalErro) {
                 DialogErro(
-                    mostrarDialog =mostraModalErro,
+                    mostrarDialog = mostraModalErro,
                     primaryAction = { viewModel.fecharModalErro() },
                     textDescricao = viewModel.erro.value ?: "Erro desconhecido"
                 )
@@ -258,7 +258,7 @@ fun ScreenDadosPessoais(
             }
         }
 
-        if(mostraProgress){
+        if (mostraProgress) {
             ProgressBarCentralizao(mostraProgress)
         }
 

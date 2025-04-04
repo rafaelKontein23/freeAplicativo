@@ -25,7 +25,7 @@ class ScrenDadosEnderecoViewModel @Inject constructor(
     val listaUF: StateFlow<List<String>> = _listaUF
 
     private val _erro = MutableStateFlow(String())
-    val erro : MutableStateFlow<String> = _erro
+    val erro: MutableStateFlow<String> = _erro
 
     private val _mostraModalErro = MutableStateFlow(false)
     val mostraModalErro: StateFlow<Boolean> = _mostraModalErro
@@ -33,12 +33,8 @@ class ScrenDadosEnderecoViewModel @Inject constructor(
     private val _ufSelecionado = MutableStateFlow("Estado")
     val ufSelecionado: StateFlow<String> = _ufSelecionado
 
-
     private val _listaCidades = MutableStateFlow(arrayListOf<CidadeResponseItem>())
     val listaCidades: StateFlow<ArrayList<CidadeResponseItem>> = _listaCidades
-
-
-
 
     private val _cep = MutableStateFlow(CepResponse())
     val cep: StateFlow<CepResponse> = _cep
@@ -49,15 +45,15 @@ class ScrenDadosEnderecoViewModel @Inject constructor(
     private val _cidadeSelecionada = MutableStateFlow("Cidade")
     val cidadeSelecionada: StateFlow<String> = _cidadeSelecionada
 
-    fun mostraModalErro( mensagenm: String) {
+    fun mostraModalErro(mensagenm: String) {
         _mostraModalErro.value = true
         _erro.value = mensagenm
     }
 
-
     fun fecharModalErro() {
         _mostraModalErro.value = false
     }
+
     fun atualizarListaUF() {
         val povoaUF = AlimentaListas()
         _listaUF.value = povoaUF.alimentaListaUF()
@@ -92,21 +88,20 @@ class ScrenDadosEnderecoViewModel @Inject constructor(
                     if (resultado is String) {
                         _erro.value = resultado
                         _mostraModalErro.value = true
-                    }else{
+                    } else {
                         _listaCidades.value = resultado as ArrayList<CidadeResponseItem>
                     }
                 }
-
             }
         }
     }
 
-    fun  atualizarCidadeSelecionada(cidade: String){
+    fun atualizarCidadeSelecionada(cidade: String) {
         _cidadeSelecionada.value = cidade
 
     }
 
-    fun atualizaMensagemErro(error: String){
+    fun atualizaMensagemErro(error: String) {
         _erro.value = error
     }
 

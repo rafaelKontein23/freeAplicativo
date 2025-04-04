@@ -187,7 +187,7 @@ fun DialogBanco(
         )
     ) {
 
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -202,13 +202,14 @@ fun DialogBanco(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-            ){
+            ) {
                 TextTituloDialog(titulo = "Bancos")
                 Image(
                     painter = painterResource(R.drawable.x),
                     contentDescription = "Fechar ",
                     modifier = Modifier
-                        .padding(top = 24.dp).clickable {
+                        .padding(top = 24.dp)
+                        .clickable {
                             primaryAction()
                         }
                 )

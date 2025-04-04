@@ -65,7 +65,7 @@ fun ScrenDadosRecebimento(
                 onTextChange = { textoConta.value = it },
                 titulo = "Número da Conta",
                 placeHolder = "00000000",
-                error = textoConta.value.length  in 1 ..2,
+                error = textoConta.value.length in 1..2,
                 focusRequester = FocusRequester()
             )
             InputTextComum(
@@ -73,7 +73,7 @@ fun ScrenDadosRecebimento(
                 onTextChange = { textoAgencia.value = it },
                 titulo = "Agência",
                 placeHolder = "0000",
-                error =  textoAgencia.value.length  in 1 ..2,
+                error = textoAgencia.value.length in 1..2,
                 focusRequester = FocusRequester()
             )
             InputTextComum(
@@ -86,7 +86,6 @@ fun ScrenDadosRecebimento(
             )
 
         }
-
 
         if (mostraModalBanco) {
             DialogBanco(
@@ -114,10 +113,8 @@ fun ScrenDadosRecebimento(
         if (mostrarProgress) {
             ProgressBarCentralizao(mostrarProgress)
         }
-
     }
 }
-
 
 @Composable
 @Preview

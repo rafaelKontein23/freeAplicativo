@@ -54,7 +54,8 @@ fun DialogErro(
                 Image(
                     painter = painterResource(R.drawable.cancelar),
                     contentDescription = "Fechar",
-                    modifier = Modifier.size(68.dp)
+                    modifier = Modifier
+                        .size(68.dp)
                         .background(color = Color.White, shape = RoundedCornerShape(8.dp))
                 )
                 TextModal("Opss!!")
@@ -70,6 +71,5 @@ fun DialogErro(
 @Preview(showBackground = true)
 @Composable
 fun DialogErroPreview() {
-    val mostrarDialog = remember { mutableStateOf(true) }
     DialogErro(mostrarDialog = false, primaryAction = {}, textDescricao = "Erro de rede")
 }
